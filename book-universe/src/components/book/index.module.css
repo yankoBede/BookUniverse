@@ -1,0 +1,21 @@
+  div.book {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 30%;;
+  }
+
+  div.book button {
+    margin: 10px auto 12% auto;
+  }
+
+  div.book button:hover {
+    color: yellow;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .book-image {
+    height: 209px;
+    width: 140px;
+  }

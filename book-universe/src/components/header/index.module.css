@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin');
+
+* {
+  font-family: 'Libre Franklin',
+  sans-serif;
+}
+
+nav {
+  background: #1E90FF;
+  padding: 5px;
+  position: static;
+}

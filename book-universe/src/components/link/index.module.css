@@ -1,0 +1,40 @@
+
+  .link {
+    color: white;
+    text-decoration: none;
+    outline: none;
+  }
+
+  div > a:hover {
+    border-top: none;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    color: white;
+  }
+
+  .left-list-item {
+    display: inline-block;
+    height: auto;
+    margin-right: 2%;
+    cursor: pointer;
+    padding: 0.5%;
+    margin: 0.1%;
+    vertical-align: top;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    outline: none;
+  }
+
+  .right-list-item {
+    height: auto;
+    margin-right: 2%;
+    cursor: pointer;
+    padding: 0.5%;
+    margin: 0.1%;
+    vertical-align: top;
+    font-weight: bold;
+    color: white;
+    float: right;
+  }

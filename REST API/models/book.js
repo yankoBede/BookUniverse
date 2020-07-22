@@ -11,16 +11,11 @@ const BookSchema = new mongoose.Schema({
   },
   description: {
     type: 'String',
-    required: [true, 'Description is required'],
-    maxlength: [50, 'Description must be up to 50 symbols long']
+    required: [true, 'Description is required']
   },
   imageUrl: {
     type: 'String',
     required: [true, 'Image Url is required']
-  },
-  isPublic: {
-    type: 'Boolean',
-    default: false
   },
   createdAt: {
     type: 'String',
