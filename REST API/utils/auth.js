@@ -3,7 +3,6 @@ const config = require('../config/config');
 const models = require('../models');
 
 module.exports = (redirectAuthenticated = true) => {
-
     return async function (req, res, next) {
         const token = req.cookies[config.authCookieName] || '';
 
@@ -19,5 +18,4 @@ module.exports = (redirectAuthenticated = true) => {
             next(err);
         }
     }
-
 };

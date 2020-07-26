@@ -27,8 +27,7 @@ class BookDetail extends Component {
 
     onCommentClick = (event) => {
       event.preventDefault()
-      console.log(this.props)
-       
+      //this.props.props.history.push(`/books/${this.state.book._id}/comment`)
     }
   
     render() {

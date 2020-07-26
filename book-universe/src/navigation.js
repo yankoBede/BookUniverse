@@ -4,7 +4,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
-import BookList from './pages/books-list'
+import BooksList from './pages/books-list'
 import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
 import ErrorPage from './pages/error'
@@ -17,7 +17,7 @@ const Navigation = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={BookList} />
+        <Route path="/" exact component={BooksList} />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/addBook" component={AddNewBook} />

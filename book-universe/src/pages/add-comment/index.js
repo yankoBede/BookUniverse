@@ -6,7 +6,7 @@ import Input from '../../components/input';
 class AddCommentPage extends Component {
     constructor(props) {
       super(props)
-  
+      
       this.state = {
         content: "",
         createdAt: ""

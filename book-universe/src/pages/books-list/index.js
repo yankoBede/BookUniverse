@@ -5,7 +5,7 @@ import Title from '../../components/title'
 import Books from '../../components/books'
 import UserContext from '../../Context'
 
-class Publications extends Component {
+class BooksList extends Component {
   constructor(props) {
     super(props)
   }
@@ -13,7 +13,7 @@ class Publications extends Component {
   static contextType = UserContext
 
   render() {
-    console.log(this.context)
+
     return (
       <PageLayout>
         <Title title="Books" />
@@ -23,4 +23,4 @@ class Publications extends Component {
   }
 }
 
-export default Publications
+export default BooksList

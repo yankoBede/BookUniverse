@@ -1,6 +1,7 @@
 const models = require('../models');
 const config = require('../config/config');
 const utils = require('../utils');
+const jwt = require('../utils/jwt');
 
 module.exports = {
     get: (req, res, next) => {
@@ -21,6 +22,26 @@ module.exports = {
                 .catch((err) => {
                   console.log(err)
                 })
+        },
+
+        verifyLogin: async (req, res, next) => {
+            const token = req.body.token || '';
+            console.log(token)
+            try{
+                const data = await jwt.verifyToken(token);
+                const user = await models.User.findById(data.id)
+                
+                req.user = user;
+                return res.send({
+                    status: true,
+                    user
+                })
+            }
+            catch(err) {
+               return res.send({
+                   status: false
+               })
+            }
         },
 
         login: (req, res, next) => {

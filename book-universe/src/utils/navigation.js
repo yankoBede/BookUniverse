@@ -13,7 +13,7 @@ const getNavigation = (loggedIn, user) => {
     },
     {
       title: "Logout",
-      link: "/logout",
+      link: "/",
       position: "right"
     }
   ]
@@ -35,7 +35,7 @@ const getNavigation = (loggedIn, user) => {
       position: "right"
     }
   ]
-    console.log(loggedIn)
+  
     return loggedIn ? authLinks : guestLinks
   }
   
