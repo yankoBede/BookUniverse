@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Title from '../../components/title'
-
 import PageLayout from '../../components/page-layout'
 import Input from '../../components/input';
+import TextArea from '../../components/textarea';
 
 class AddNewBookPage extends Component {
   constructor(props) {
@@ -44,6 +44,7 @@ class AddNewBookPage extends Component {
                     onChange={(e) => this.onChange(e, 'title')}
                     label="Title"
                     id="title"
+                    name="title"
                     divClass="form-group"
                     inputClass="form-control"
                     type="text"
@@ -53,20 +54,26 @@ class AddNewBookPage extends Component {
                     onChange={(e) => this.onChange(e, 'author')}
                     label="Author"
                     id="author"
+                    name="author"
                     divClass="form-group"
                     inputClass="form-control"
                     type="text"
                     placeholder="The book author is..."/>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <textarea value={description}  name="description" id="description" cols="30" rows="10" className="form-control cause-description"
-                        placeholder="A little bit information about the book." required onChange={(e) => this.onChange(e, 'description')}></textarea>
-                </div>
+                <TextArea 
+                    value={description}  
+                    name="description" 
+                    id="description" 
+                    divClass="form-group"
+                    inputClass="form-control"
+                    placeholder="A little bit information about the book." 
+                    required onChange={(e) => this.onChange(e, 'description')}>
+                </TextArea>
                 <Input
                     value={imageUrl}
                     onChange={(e) => this.onChange(e, 'imageUrl')}
                     label="Image Url"
                     id="imageUrl"
+                    name="imageUrl"
                     divClass="form-group"
                     inputClass="form-control"
                     type="text"

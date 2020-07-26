@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
-import Input from '../../components/input';
+import TextArea from '../../components/textarea';
 
 class AddCommentPage extends Component {
     constructor(props) {
@@ -41,14 +41,14 @@ class AddCommentPage extends Component {
           <div className="col-md-4">
           <Title title="Add a new book" />
               <form onSubmit={this.onSubmitHadler}>
-                  <Input
+                  <TextArea
                       value={content}
                       onChange={(e) => this.onChange(e, 'content')}
                       label="Title"
                       id="title"
                       divClass="form-group"
                       inputClass="form-control"
-                      type="text"
+                      name="title"
                       placeholder="Fill your comment"/>
   
                   <button className="btn btn-primary">Create</button>

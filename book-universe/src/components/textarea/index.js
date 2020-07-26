@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({
+const TextArea = ({
   label, 
   id,
   name,
@@ -8,16 +8,14 @@ const Input = ({
   onChange, 
   divClass, 
   inputClass,
-  type,
   placeholder
 }) => {
   return (
     <div className={divClass}>
       <label htmlFor={id}>{label}</label>
-      <input id={id} value={value} name={name} onChange={onChange} className={inputClass} type={type} placeholder={placeholder}/>
+      <textarea id={id} name={name} value={value} onChange={onChange} className={inputClass} placeholder={placeholder}/>
     </div>
   )
 }
 
-export default Input
-
+export default TextArea

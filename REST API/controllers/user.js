@@ -26,7 +26,7 @@ module.exports = {
 
         verifyLogin: async (req, res, next) => {
             const token = req.body.token || '';
-            console.log(token)
+
             try{
                 const data = await jwt.verifyToken(token);
                 const user = await models.User.findById(data.id)
