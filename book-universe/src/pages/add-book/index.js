@@ -3,6 +3,7 @@ import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
 import Input from '../../components/input';
 import TextArea from '../../components/textarea';
+import getCookie from '../../utils/getCookie'
 
 class AddNewBookPage extends Component {
   constructor(props) {
@@ -23,6 +24,43 @@ class AddNewBookPage extends Component {
     this.setState(newState)
   }
 
+  submitHandler = async (e) => {
+    e.preventDefault()
+
+    const {
+      author,
+      title,
+      description,
+      imageUrl
+    } = this.state
+
+    console.log(      author,
+      title,
+      description,
+      imageUrl)
+
+    const createdAt = Date.now()
+
+    const promise = await fetch('http://localhost:9999/api/book', {
+      method: 'POST',
+      body: JSON.stringify({
+        author,
+        title,
+        description,
+        imageUrl,
+        createdAt
+      }),
+      headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:9999/',
+          'Access-Control-Allow-Credentials': true
+      }
+    })
+
+    const response = await promise.json();
+    console.log(response)
+  }
+
   render() {
     const {
         author,
@@ -38,7 +76,7 @@ class AddNewBookPage extends Component {
         <div className="col-md-4"></div>
         <div className="col-md-4">
         <Title title="Add a new book" />
-            <form>
+            <form onSubmit={this.submitHandler}>
                 <Input
                     value={title}
                     onChange={(e) => this.onChange(e, 'title')}

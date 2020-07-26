@@ -1,5 +1,6 @@
 import React, { Component, useContext } from 'react'
 import UserContext from './Context'
+import getCookie from './utils/getCookie'
 
 class App extends Component {
     constructor(props) {
@@ -26,13 +27,8 @@ class App extends Component {
         })
     }
 
-    getCookie(name) {
-        var cookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-        return cookieValue ? cookieValue[2] : null
-    }
-
     componentDidMount() {
-        const token = this.getCookie('x-auth-token')
+        const token = getCookie('x-auth-token')
 
         if (!token) {
             this.logOut()

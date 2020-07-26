@@ -36,15 +36,15 @@ class LoginPage extends Component {
     await authenticate('http://localhost:9999/api/user/login', {
       username,
       password
-    }, (user) => {
-      console.log('Yeyyyy')
+      }, (user) => {
+        console.log('Yeyyyy')
 
-      this.context.logIn(user) 
-      this.props.history.push('/')
-    }, e => {
-      console.log('Error', e)
-    }
-  )
+        this.context.logIn(user) 
+        this.props.history.push('/')
+      }, e => {
+        console.log('Error', e)
+      }
+    )
   }
 
   render() {
