@@ -3,6 +3,8 @@ import Title from '../../components/title'
 import styles from './index.module.css'
 import PageLayout from '../../components/page-layout'
 import Input from '../../components/input';
+import authenticate from '../../utils/authenticate'
+import UserContext from '../../Context'
 
 class LoginPage extends Component {
   constructor(props) {
@@ -21,6 +23,8 @@ class LoginPage extends Component {
     this.setState(newState)
   }
 
+  static contextType = UserContext
+
   submitHandler = async (event) =>  {
     event.preventDefault();
 
@@ -29,22 +33,18 @@ class LoginPage extends Component {
       password
     } = this.state
 
-    const data = {
-      "username": username,
-      "password": password
+    await authenticate('http://localhost:9999/api/user/login', {
+      username,
+      password
+    }, (user) => {
+      console.log('Yeyyyy')
+
+      this.context.logIn(user) 
+      this.props.history.push('/')
+    }, e => {
+      console.log('Error', e)
     }
-
-
- 
-
-    const result = await fetch('http://localhost:9999/api/user/login', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    })
+  )
   }
 
   render() {
@@ -54,17 +54,17 @@ class LoginPage extends Component {
     } = this.state
 
     return (
+
       <PageLayout>
- 
-    <div className="row">
-        <div className="col-md-4"></div>
-        <div className="col-md-4">
-        <Title title="Login" />
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4">
+            <Title title="Login" />
             <form onSubmit={this.submitHandler}>
-            <Input
+              <Input
                 value={username}
                 onChange={(e) => this.onChange(e, 'username')}
-                label="Email Address"
+                label="Username"
                 id="username"
                 divClass="form-group"
                 inputClass="form-control"
@@ -80,11 +80,10 @@ class LoginPage extends Component {
                 type="password"
                 placeholder="**************"/>
                 <button className="btn btn-success">Login</button>
-            </form>
+              </form>
             <p>Don't have account yet? <a href="/register">Register</a>.</p>
+          </div>
         </div>
-        </div>
-
       </PageLayout>
     )
   }

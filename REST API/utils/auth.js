@@ -4,11 +4,14 @@ const models = require('../models');
 
 module.exports = (redirectAuthenticated = true) => {
 
-    return function (req, res, next) {
+    return async function (req, res, next) {
         const token = req.cookies[config.authCookieName] || '';
 
         try{
-            jwt.verifyToken(token);
+            const data = await jwt.verifyToken(token);
+            const user = await models.User.findById(data.id)
+            req.user = user;
+            next();
         }
         catch(err) {
             if (!redirectAuthenticated) { next(); return; }

@@ -21,7 +21,6 @@ class AddNewBookPage extends Component {
     newState[type] = event.target.value
 
     this.setState(newState)
-    console.log(this.state)
   }
 
   render() {
@@ -61,7 +60,7 @@ class AddNewBookPage extends Component {
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
                     <textarea value={description}  name="description" id="description" cols="30" rows="10" className="form-control cause-description"
-                        placeholder="A little bit information about the movie." required onChange={(e) => this.onChange(e, 'description')}></textarea>
+                        placeholder="A little bit information about the book." required onChange={(e) => this.onChange(e, 'description')}></textarea>
                 </div>
                 <Input
                     value={imageUrl}

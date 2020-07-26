@@ -2,29 +2,53 @@ import React, { Component } from 'react'
 import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
 import Input from '../../components/input';
+import authenticate from '../../utils/authenticate'
+import UserContext from '../../Context'
 
 class RegisterPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      email: "",
+      username: "",
       password: "",
       rePassword: ""
     }
   }
 
+  static contextType = UserContext
+
   onChange = (event, type) => {
     const newState = {}
     newState[type] = event.target.value
-    console.log(newState)
 
     this.setState(newState)
   }
 
+  handlerSubmit = async (event) =>  {
+    event.preventDefault();
+
+    const {
+      username,
+      password
+    } = this.state
+
+    await authenticate('http://localhost:9999/api/user/register', {
+        username,
+        password
+      }, (user) => {
+        this.context.logIn(user) 
+        this.props.history.push('/')
+      }, e => {
+        console.log('Error', e)
+      }
+    )
+  }
+
+
   render() {
     const {
-      email,
+      username,
       password,
       rePassword
     } = this.state
@@ -36,16 +60,16 @@ class RegisterPage extends Component {
         <div className="col-md-4"></div>
         <div className="col-md-4">
             <Title title="Register" />
-            <form>
+            <form onSubmit={this.handlerSubmit}>
               <Input
-                value={email}
-                onChange={(e) => this.onChange(e, 'email')}
-                label="Email Address"
-                id="email"
+                value={username}
+                onChange={(e) => this.onChange(e, 'username')}
+                label="Username"
+                id="username"
                 divClass="form-group"
                 inputClass="form-control"
-                type="email"
-                placeholder="usermail@domain.com"/>
+                type="text"
+                placeholder="username"/>
               <Input
                 value={password}
                 onChange={(e) => this.onChange(e, 'password')}
@@ -57,7 +81,7 @@ class RegisterPage extends Component {
                 placeholder="**************"/>
               <Input
                 value={rePassword}
-                onChange={(e) => this.onChange(e, 'password')}
+                onChange={(e) => this.onChange(e, 'rePassword')}
                 label="Re-Password"
                 id="rePassword"
                 divClass="form-group"

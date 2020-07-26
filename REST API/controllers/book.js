@@ -34,7 +34,9 @@ module.exports = {
             .then(([modifiedObj, book]) => {
                 res.send(book);
             })
-            .catch(next);
+            .catch(e => {
+                console.error(e);
+            });
     },
 
     put: (req, res, next) => {

@@ -3,7 +3,11 @@ const mongoose = require('mongoose')
 const CommentSchema = new mongoose.Schema({
   content: {
     type: 'String',
-    required: [true, 'Comment content is required'],
+    required: [true, 'Comment content is required']
+  },
+  createdAt: {
+    type: 'String',
+    required: [true, 'Created at is required']
   },
   creator: {
     type: 'ObjectId',

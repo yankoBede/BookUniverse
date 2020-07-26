@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  height: auto;
+  margin-bottom: 3%;
+  border-radius: 4px;
+}
+
+.description {
+  word-wrap: break-word;
+  font-style: italic;
+}
+
+.container div {
+  height: auto;
+  text-align: left;
+  margin-bottom: 0.5%;
+}
+
+.user {
+  text-decoration: underline;
+  text-align: left;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}

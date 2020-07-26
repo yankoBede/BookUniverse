@@ -2,7 +2,7 @@
     font-family: Arial;
 }
 
-div.movies {
+div.books {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;

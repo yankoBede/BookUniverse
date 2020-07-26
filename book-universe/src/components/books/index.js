@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './index.module.css'
-import Book from '../book'
+import BookInfo from '../book-info'
 
 class Books extends Component {
   constructor(props) {
@@ -15,7 +15,6 @@ class Books extends Component {
     const { length } = this.props
     const promise = await fetch(`http://localhost:9999/api/book?length=${length}`)
     const books = await promise.json()
-    console.log('hello')
 
     this.setState({
         books
@@ -27,7 +26,7 @@ class Books extends Component {
 
     return books.map((book, index) => {
       return (
-        <Book key={book._id} index={index} {...book} />
+        <BookInfo key={book._id} index={index} {...book} />
       )
     })
   }
@@ -38,7 +37,7 @@ class Books extends Component {
 
   render() {
     return (
-      <div className={styles.movies}>
+      <div className={styles.books}>
         {this.renderBooks()}
       </div>
     )
