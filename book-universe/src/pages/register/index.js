@@ -11,19 +11,93 @@ class RegisterPage extends Component {
 
     this.state = {
       username: "",
+      usernameError: false,
+      usernameErrorMessage: "",
       password: "",
-      rePassword: ""
+      passwordError: false,
+      passwordErrorMessage: "",
+      rePassword: "",
+      rePasswordError: false,
+      rePasswordErrorMessage: ""
     }
   }
 
   static contextType = UserContext
 
-  onChange = (event, type) => {
-    const newState = {}
-    newState[type] = event.target.value
+  usernameChange = (event) => {
+    const value = event.target.value;
+    const regex = /^[0-9a-zA-Z(\-)]+$/;
 
-    this.setState(newState)
+    if (value.length < 5 || value.length > 12) {
+      this.setState({ 
+        usernameError : true,
+        usernameErrorMessage: 'Username must be between 5 and 12 characters',
+        username: event.target.value
+      })
+    } else if (!value.match(regex)) {
+      this.setState({ 
+        usernameError : true,
+        usernameErrorMessage: 'Username must contain only letters and numbers',
+        username: value
+      })
+    }  else {
+      this.setState({ 
+        usernameError: false,
+        usernameErrorMessage: "",
+        username: value
+      })
+    }
   }
+
+  passwordChange = (event) => {
+    const value = event.target.value;
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+
+    if (!value.match(regex)) {
+      this.setState({ 
+        passwordError : true,
+        passwordErrorMessage: 'Password must minimum 8 characters and at least 1 alphabet, 1 mumber and 1 special symbols',
+        password: value
+      })
+    }  else {
+      this.setState({ 
+        passwordError: false,
+        passwordErrorMessage: "",
+        password: value
+      })
+    }
+  }
+
+  rePasswordChange = (event) => {
+    const rePassword = event.target.value;
+    const password = this.state.password;
+
+    this.validateRepassword(password, rePassword)
+  }
+
+  onPasswordBlur = () => {
+    const password = this.state.password;
+    const rePassword = this.state.rePassword;
+    
+    this.validateRepassword(password, rePassword)
+  }
+
+  validateRepassword = (passwordValue, rePasswordValue) => {
+    if(rePasswordValue !== passwordValue) {
+      this.setState({ 
+        rePasswordError : true,
+        rePasswordErrorMessage: 'Password and Re-Password don\'t match',
+        rePassword: rePasswordValue
+      })
+    } else {
+      this.setState({ 
+        rePasswordError: false,
+        rePasswordErrorMessage: "",
+        rePassword: rePasswordValue
+      })
+    }
+  }
+
 
   handlerSubmit = async (event) =>  {
     event.preventDefault();
@@ -40,16 +114,28 @@ class RegisterPage extends Component {
         this.context.logIn(user) 
         this.props.history.push('/')
       }, e => {
-        console.log('Error', e)
+        if (e.message.code === 11000) {
+          this.setState({ 
+            usernameError : true,
+            usernameErrorMessage: 'Username is already taken',
+          })
+        }
       }
     )
   }
 
 
+
   render() {
     const {
       username,
+      usernameError,
+      usernameErrorMessage,
       password,
+      passwordError,
+      passwordErrorMessage,
+      rePasswordError,
+      rePasswordErrorMessage,
       rePassword
     } = this.state
 
@@ -63,32 +149,45 @@ class RegisterPage extends Component {
             <form onSubmit={this.handlerSubmit}>
               <Input
                 value={username}
-                onChange={(e) => this.onChange(e, 'username')}
+                onChange={this.usernameChange}
+                onBlur={this.usernameBlur}
                 label="Username"
                 id="username"
                 divClass="form-group"
                 inputClass="form-control"
                 type="text"
+                error={usernameError}
+                errorMessage={usernameErrorMessage}
                 placeholder="username"/>
               <Input
                 value={password}
-                onChange={(e) => this.onChange(e, 'password')}
+                onBlur={this.onPasswordBlur}
+                onChange={this.passwordChange}
                 label="Password"
                 id="password"
                 divClass="form-group"
                 inputClass="form-control"
                 type="password"
+                error={passwordError}
+                errorMessage={passwordErrorMessage}
                 placeholder="**************"/>
               <Input
                 value={rePassword}
-                onChange={(e) => this.onChange(e, 'rePassword')}
+                onChange={this.rePasswordChange}
                 label="Re-Password"
                 id="rePassword"
                 divClass="form-group"
                 inputClass="form-control"
                 type="password"
+                error={rePasswordError}
+                errorMessage={rePasswordErrorMessage}
                 placeholder="**************"/>
-                <button className="btn btn-primary">Register</button>
+                {(usernameError || passwordError || rePasswordError 
+                || !username.length || !password.length || !rePassword.length) ?
+                  <button className="btn btn-primary" disabled>Register</button> :
+                  <button className="btn btn-primary">Register</button>
+                } 
+                
             </form>
             <p>Already Registered? <a href="/login">Login</a>.</p>
         </div>

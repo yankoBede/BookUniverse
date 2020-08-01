@@ -34,11 +34,6 @@ class AddNewBookPage extends Component {
       imageUrl
     } = this.state
 
-    console.log(      author,
-      title,
-      description,
-      imageUrl)
-
     const createdAt = Date.now()
 
     const promise = await fetch('http://localhost:9999/api/book', {
@@ -58,7 +53,6 @@ class AddNewBookPage extends Component {
     })
 
     const response = await promise.json();
-    console.log(response)
   }
 
   render() {

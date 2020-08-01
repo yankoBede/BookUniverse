@@ -19,11 +19,15 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
                 username: response.username,
                 id: response._id
             })
-        } else {
-            onFailure()
+        } else if (response.error){
+            onFailure({
+                message: response.message
+            })
         }
     } catch(e) {
-        onFailure()
+        onFailure({
+            e
+        })
     }
 }
 

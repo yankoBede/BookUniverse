@@ -20,7 +20,10 @@ module.exports = {
                     res.header(config.authCookieName, token).send(createdUser)
                 })
                 .catch((err) => {
-                  console.log(err)
+                    return res.send({
+                        error: true,
+                        message: err
+                    })
                 })
         },
 
@@ -49,8 +52,12 @@ module.exports = {
             models.User.findOne({ username })
                 .then((user) => Promise.all([user, user.matchPassword(password)]))
                 .then(([user, match]) => {
+                    console.log(user, match)
                     if (!match) {
-                        res.status(401).send('Invalid password');
+                        res.status(401).send({
+                            error: true,
+                            message: "Login is unsuccessful! Please double-check your credentials"
+                        });
                         return;
                     }
 
@@ -58,7 +65,12 @@ module.exports = {
                     //res.cookie(config.authCookieName, token).send(user);
                     res.header(config.authCookieName, token).send(user);
                 })
-                .catch(next);
+                .catch((err) => {
+                    return res.status(401).send({
+                        error: true,
+                        message: "Login is unsuccessful! Please double-check your credentials"
+                    })
+                })
         },
 
         logout: (req, res, next) => {

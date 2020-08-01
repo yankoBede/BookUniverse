@@ -12,11 +12,18 @@ class LoginPage extends Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      error: false,
+      errorMessage: ""
     }
   }
 
   onChange = (event, type) => {
+    this.setState({ 
+      error: false,
+      errorMessage: ""
+    })
+
     const newState = {}
     newState[type] = event.target.value
 
@@ -37,12 +44,13 @@ class LoginPage extends Component {
       username,
       password
       }, (user) => {
-        console.log('Yeyyyy')
-
         this.context.logIn(user) 
         this.props.history.push('/')
       }, e => {
-        console.log('Error', e)
+        this.setState({ 
+          error : true,
+          errorMessage: "Login is unsuccessful! Please double-check your credentials"
+        })
       }
     )
   }
@@ -50,7 +58,9 @@ class LoginPage extends Component {
   render() {
     const {
       username,
-      password
+      password,
+      error,
+      errorMessage
     } = this.state
 
     return (
@@ -75,11 +85,16 @@ class LoginPage extends Component {
                 onChange={(e) => this.onChange(e, 'password')}
                 label="Password"
                 id="password"
+                error={error}
+                errorMessage={errorMessage}
                 divClass="form-group"
                 inputClass="form-control"
                 type="password"
                 placeholder="**************"/>
-                <button className="btn btn-success">Login</button>
+                {error ?
+                  <button className="btn btn-success" disabled>Login</button> :
+                  <button className="btn btn-success">Login</button>
+                } 
               </form>
             <p>Don't have account yet? <a href="/register">Register</a>.</p>
           </div>
