@@ -43,8 +43,8 @@ module.exports = {
         },
 
         verifyLogin: async (req, res, next) => {
-            const token = req.body.token || '';
-
+            const token = req.headers[config.authCookieName] || '';
+            
             try{
                 const data = await jwt.verifyToken(token);
                 const user = await models.User.findById(data.id)
@@ -57,7 +57,8 @@ module.exports = {
             }
             catch(err) {
                return res.send({
-                   status: false
+                   status: false,
+                   err
                })
             }
         },

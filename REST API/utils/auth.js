@@ -4,7 +4,7 @@ const models = require('../models');
 
 module.exports = (redirectAuthenticated = true) => {
     return async function (req, res, next) {
-        const token = req.cookies[config.authCookieName] || '';
+        const token = req.headers[config.authCookieName] || '';
 
         try{
             const data = await jwt.verifyToken(token);

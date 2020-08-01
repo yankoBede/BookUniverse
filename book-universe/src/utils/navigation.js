@@ -1,4 +1,5 @@
-const getNavigation = (loggedIn, user) => {
+const getNavigation = (user) => {
+  console.log(user)
 
   const authLinks = [
     {
@@ -7,7 +8,7 @@ const getNavigation = (loggedIn, user) => {
       position: "left"
     },
     {
-      title: `Hello,  ${ user ? user.username : "Azis"}`,
+      title: `Hello,  ${ user ? user.username : null}`,
       link: "/",
       position: "right"
     },
@@ -35,7 +36,8 @@ const getNavigation = (loggedIn, user) => {
       position: "right"
     }
   ]
-  
+
+    const loggedIn = user && user.loggedIn
     return loggedIn ? authLinks : guestLinks
   }
   
