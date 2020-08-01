@@ -4,7 +4,7 @@ import './index.css';
 import Navigation from './navigation'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App'
-import { ToastProvider, useToasts } from 'react-toast-notifications'
+import { ToastProvider } from 'react-toast-notifications'
 
 ReactDOM.render(
   <React.StrictMode>

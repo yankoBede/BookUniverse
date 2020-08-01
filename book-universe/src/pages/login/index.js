@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
 import Title from '../../components/title'
 import styles from './index.module.css'
 import PageLayout from '../../components/page-layout'
@@ -10,18 +10,10 @@ import { useToasts } from 'react-toast-notifications'
 
 const LoginPage = (props) => {
   const { addToast, removeToast } = useToasts()
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const context = useContext(UserContext);
   const history = useHistory()
-
-  const onUsernameChange = (event) => {
-    setUsername(event.target.value)
-  }
-
-  const onPasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -57,7 +49,7 @@ const LoginPage = (props) => {
             <form onSubmit={submitHandler}>
               <Input
                 value={username}
-                onChange={(e) => onUsernameChange(e, 'username')}
+                onChange={e => setUsername(e.target.value)}
                 label="Username"
                 id="username"
                 divClass="form-group"
@@ -66,7 +58,7 @@ const LoginPage = (props) => {
                 placeholder="usermail@domain.com"/>
               <Input
                 value={password}
-                onChange={(e) => onPasswordChange(e, 'password')}
+                onChange={e => setPassword(e.target.value)}
                 label="Password"
                 id="password"
                 divClass="form-group"

@@ -1,6 +1,4 @@
 const getNavigation = (user) => {
-  console.log(user)
-
   const authLinks = [
     {
       title: "Add a new book",

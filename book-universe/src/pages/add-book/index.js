@@ -1,40 +1,20 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
 import Input from '../../components/input';
 import TextArea from '../../components/textarea';
 import getCookie from '../../utils/getCookie'
 
-class AddNewBookPage extends Component {
-  constructor(props) {
-    super(props)
+const AddNewBookPage = () => {
+  const [author, setAuthor] = useState('')
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
 
-    this.state = {
-      author: "",
-      title: "",
-      description: "",
-      imageUrl: ""
-    }
-  }
-
-  onChange = (event, type) => {
-    const newState = {}
-    newState[type] = event.target.value
-
-    this.setState(newState)
-  }
-
-  submitHandler = async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
 
-    const {
-      author,
-      title,
-      description,
-      imageUrl
-    } = this.state
-
-    const createdAt = Date.now()
+    const createdAt = Date()
 
     const promise = await fetch('http://localhost:9999/api/book', {
       method: 'POST',
@@ -47,22 +27,14 @@ class AddNewBookPage extends Component {
       }),
       headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:9999/',
-          'Access-Control-Allow-Credentials': true
+          'x-auth-token': getCookie('x-auth-token')
       }
     })
 
     const response = await promise.json();
   }
 
-  render() {
-    const {
-        author,
-        title,
-        description,
-        imageUrl
-    } = this.state
-
+ 
     return (
       <PageLayout>
  
@@ -70,10 +42,10 @@ class AddNewBookPage extends Component {
         <div className="col-md-4"></div>
         <div className="col-md-4">
         <Title title="Add a new book" />
-            <form onSubmit={this.submitHandler}>
+            <form onSubmit={submitHandler}>
                 <Input
                     value={title}
-                    onChange={(e) => this.onChange(e, 'title')}
+                    onChange={(e) => setTitle(e.target.value)}
                     label="Title"
                     id="title"
                     name="title"
@@ -83,7 +55,7 @@ class AddNewBookPage extends Component {
                     placeholder="The book title is..."/>
                 <Input
                     value={author}
-                    onChange={(e) => this.onChange(e, 'author')}
+                    onChange={(e) => setAuthor(e.target.value)}
                     label="Author"
                     id="author"
                     name="author"
@@ -98,11 +70,12 @@ class AddNewBookPage extends Component {
                     divClass="form-group"
                     inputClass="form-control"
                     placeholder="A little bit information about the book." 
-                    required onChange={(e) => this.onChange(e, 'description')}>
+                    required 
+                    onChange={(e) => setDescription(e.target.value)}>
                 </TextArea>
                 <Input
                     value={imageUrl}
-                    onChange={(e) => this.onChange(e, 'imageUrl')}
+                    onChange={(e) => setImageUrl(e.target.value)}
                     label="Image Url"
                     id="imageUrl"
                     name="imageUrl"
@@ -118,7 +91,7 @@ class AddNewBookPage extends Component {
 
       </PageLayout>
     )
-  }
+  
 }
 
 export default AddNewBookPage

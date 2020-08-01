@@ -39,7 +39,6 @@ const App = (props) => {
     }).then(promise => {
       return promise.json()
     }).then(response => {
-        console.log(response)
       if(response.status) {
         logIn({
           username: response.user.username,

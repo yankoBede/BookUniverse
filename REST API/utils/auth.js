@@ -13,8 +13,6 @@ module.exports = (redirectAuthenticated = true) => {
             next();
         }
         catch(err) {
-            if (!redirectAuthenticated) { next(); return; }
-
             next(err);
         }
     }

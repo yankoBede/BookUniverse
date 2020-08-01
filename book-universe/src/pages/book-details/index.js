@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PageLayout from '../../components/page-layout'
 import Comments from '../../components/comments'
-import Title from '../../components/title'
-
 
 class BookDetails extends Component  {
   constructor(props) {
