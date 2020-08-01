@@ -1,6 +1,5 @@
 const authenticate = async (url, body, onSuccess, onFailure) => {
     try {
-    
         const promise = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(body),
@@ -25,9 +24,7 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
             })
         }
     } catch(e) {
-        onFailure({
-            e
-        })
+        console.log(e)
     }
 }
 

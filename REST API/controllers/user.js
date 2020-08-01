@@ -13,6 +13,21 @@ module.exports = {
     post: {
         register: (req, res, next) => {
             const { username, password } = req.body;
+
+            if(password.length < 8) {
+                return res.send({
+                    error: true,
+                    message: "Password must be at least 8 symbols"
+                })
+            }
+
+            if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/)) {
+                return res.send({
+                    error: true,
+                    message: "Password must minimum 8 characters and at least 1 alphabet, 1 mumber and 1 special symbols"
+                })
+            }
+
             models.User.create({ username, password })
                 .then((createdUser) => {
                     const token = utils.jwt.createToken({ id: createdUser._id });
@@ -52,7 +67,6 @@ module.exports = {
             models.User.findOne({ username })
                 .then((user) => Promise.all([user, user.matchPassword(password)]))
                 .then(([user, match]) => {
-                    console.log(user, match)
                     if (!match) {
                         res.status(401).send({
                             error: true,

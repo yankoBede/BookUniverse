@@ -1,79 +1,63 @@
-import React, { Component } from 'react'
+import React, { useState, useContext } from 'react'
+import { useHistory } from "react-router-dom"
 import Title from '../../components/title'
 import styles from './index.module.css'
 import PageLayout from '../../components/page-layout'
 import Input from '../../components/input';
 import authenticate from '../../utils/authenticate'
 import UserContext from '../../Context'
+import { useToasts } from 'react-toast-notifications'
 
-class LoginPage extends Component {
-  constructor(props) {
-    super(props)
+const LoginPage = (props) => {
+  const { addToast, removeToast } = useToasts()
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const context = useContext(UserContext);
+  const history = useHistory()
 
-    this.state = {
-      username: "",
-      password: "",
-      error: false,
-      errorMessage: ""
-    }
+  const onUsernameChange = (event) => {
+    setUsername(event.target.value)
   }
 
-  onChange = (event, type) => {
-    this.setState({ 
-      error: false,
-      errorMessage: ""
-    })
-
-    const newState = {}
-    newState[type] = event.target.value
-
-    this.setState(newState)
+  const onPasswordChange = (event) => {
+    setPassword(event.target.value)
   }
 
-  static contextType = UserContext
-
-  submitHandler = async (event) =>  {
+  const submitHandler = async (event) => {
     event.preventDefault();
-
-    const {
-      username,
-      password
-    } = this.state
 
     await authenticate('http://localhost:9999/api/user/login', {
       username,
       password
       }, (user) => {
-        this.context.logIn(user) 
-        this.props.history.push('/')
+        publishNotification('You logged successfully', 'success')
+        context.logIn(user) 
+        history.push('/')
       }, e => {
-        this.setState({ 
-          error : true,
-          errorMessage: "Login is unsuccessful! Please double-check your credentials"
-        })
+        publishNotification(e.message, 'error')
       }
     )
   }
 
-  render() {
-    const {
-      username,
-      password,
-      error,
-      errorMessage
-    } = this.state
+  const publishNotification = (message, notificationType) => {
+    const toast = addToast(message, { appearance: notificationType })
 
-    return (
+    setInterval(function() {
+      removeToast(toast)
+    }, 3000);
+  }
 
-      <PageLayout>
+  return (<PageLayout>
+    
         <div className="row">
           <div className="col-md-4"></div>
           <div className="col-md-4">
             <Title title="Login" />
-            <form onSubmit={this.submitHandler}>
+ 
+            <form onSubmit={submitHandler}>
               <Input
                 value={username}
-                onChange={(e) => this.onChange(e, 'username')}
+                onChange={(e) => onUsernameChange(e, 'username')}
                 label="Username"
                 id="username"
                 divClass="form-group"
@@ -82,26 +66,21 @@ class LoginPage extends Component {
                 placeholder="usermail@domain.com"/>
               <Input
                 value={password}
-                onChange={(e) => this.onChange(e, 'password')}
+                onChange={(e) => onPasswordChange(e, 'password')}
                 label="Password"
                 id="password"
-                error={error}
-                errorMessage={errorMessage}
                 divClass="form-group"
                 inputClass="form-control"
                 type="password"
                 placeholder="**************"/>
-                {error ?
-                  <button className="btn btn-success" disabled>Login</button> :
-                  <button className="btn btn-success">Login</button>
-                } 
+                <button className="btn btn-success">Login</button>
               </form>
+
             <p>Don't have account yet? <a href="/register">Register</a>.</p>
           </div>
         </div>
-      </PageLayout>
-    )
-  }
+      </PageLayout>)
+  
 }
 
 export default LoginPage
