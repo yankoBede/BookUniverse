@@ -3,7 +3,7 @@ import styles from './index.module.css'
 import CommentButtonsPanel from '../../components/comment-buttons-panel'
 
 
-const Comment = ({ content, creator, _id, setDeletedComment }) => {
+const Comment = ({ content, creator, _id, setDeletedComment, book }) => {
   return (
     <div className={styles.container}>
       <div>
@@ -18,7 +18,7 @@ const Comment = ({ content, creator, _id, setDeletedComment }) => {
               {content} 
           </small>
         </div>
-        <CommentButtonsPanel setDeletedComment={setDeletedComment} commentId={_id} creatorId={creator._id}/>
+        <CommentButtonsPanel setDeletedComment={setDeletedComment} book={book} commentId={_id} creatorId={creator._id}/>
       </div>
     </div>
   )

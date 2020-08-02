@@ -1,25 +1,23 @@
-import React, { useState, useh } from 'react'
+import React, { useState, useEffect } from 'react'
 import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
 import TextArea from '../../components/textarea';
 import getCookie from '../../utils/getCookie'
 import { useHistory } from 'react-router-dom';
 
-const AddCommentPage = (props) => {
+const EditCommentPage = (props) => {
     const [content, setContent] = useState('')
     const history = useHistory();
+    const [comment, setComment] = useState('')
 
     const onSubmitHadler = async (event) =>  {
         event.preventDefault();
 
-        const createdAt = Date()
-
-        const promise = await fetch('http://localhost:9999/api/comment', {
-          method: 'POST',
+        const promise = await fetch(`http://localhost:9999/api/comment/${props.match.params.commentId}`, {
+          method: 'PUT',
           body: JSON.stringify({
-            content,
-            createdAt,
-            book: props.match.params.bookId
+            ...comment,
+            content
           }),
           headers: {
               'Content-Type': 'application/json',
@@ -30,7 +28,20 @@ const AddCommentPage = (props) => {
    
         history.goBack()
     }
+
+    useEffect(() => {
+      getComment()  
+    }, [])
+
+    const getComment = async () => {
+      const promise = await fetch(`http://localhost:9999/api/comment`)
+      const comments = await promise.json()
+      const currentComment = comments.filter(x => x._id === props.match.params.commentId)[0]
+      setContent(currentComment.content)
   
+      setComment(currentComment) 
+    }
+
     return (
       <PageLayout>
         <div className="row">
@@ -47,7 +58,7 @@ const AddCommentPage = (props) => {
                 inputClass="form-control"
                 name="title"
                 placeholder="Fill your comment"/>
-              <button className="btn btn-primary">Create</button>
+              <button className="btn btn-primary">Edit</button>
             </form>
           </div>
         </div>
@@ -55,4 +66,4 @@ const AddCommentPage = (props) => {
       )
 }
   
-export default AddCommentPage
+export default EditCommentPage

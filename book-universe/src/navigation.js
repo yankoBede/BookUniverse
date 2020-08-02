@@ -10,7 +10,7 @@ import LoginPage from './pages/login'
 import ErrorPage from './pages/error'
 import AddNewBook from './pages/add-book'
 import BookDetails from './pages/book-details'
-import AddCommentPage from './pages/add-comment'
+import EditCommentPage from './pages/edit-comment'
 
 const Navigation = () => {
 
@@ -22,8 +22,7 @@ const Navigation = () => {
         <Route path="/register" component={RegisterPage} />
         <Route path="/addBook" component={AddNewBook} />
         <Route path="/books/:bookId" exact component={BookDetails}/> 
-        <Route path="/books/:bookId/comment" component={AddCommentPage}/> 
-        <Route path="/books/:bookId/comment/commentId" component={AddCommentPage}/> 
+        <Route path="/books/:bookId/comment/:commentId" component={EditCommentPage}/> 
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
