@@ -11,6 +11,7 @@ const BookDetails = (props) => {
   const [book, setBook] = useState()
   const [isCreator, setIsCreator] = useState(false)
   const [content, setContent] = useState()
+  const [addedComment, setAddedComment] = useState()
   const context = useContext(UserContext);
 
   const getBook = async () => {
@@ -49,6 +50,7 @@ const BookDetails = (props) => {
       }
     })
 
+    setAddedComment(content)
     setContent('')
 }
 
@@ -75,7 +77,7 @@ const BookDetails = (props) => {
                             <p><strong className={styles["book-description"]}>Description:</strong> {book.description}</p>
                         </div>
                         <hr/>
-                        <Comments latestComment={content} bookId={props.match.params.bookId} />
+                        <Comments addedComment={addedComment} bookId={props.match.params.bookId} />
 
                         <div className={styles['add-comment-wrapper']}>
                           <form onSubmit={commentHandler}>

@@ -4,7 +4,6 @@ import UserContext from '../../Context'
 import getCookie from '../../utils/getCookie'
 
 const CommentButtonsPanel = (props) => {
-    console.log(props)
     const context = useContext(UserContext);
 
     const deleteCommentHandler = async () => {
@@ -17,6 +16,7 @@ const CommentButtonsPanel = (props) => {
     })
 
     const response = await promise.json();
+    props.setDeletedComment(props.commentId)
     }
 
     if (context.user.isLogged || context.user.id === props.creatorId) {
