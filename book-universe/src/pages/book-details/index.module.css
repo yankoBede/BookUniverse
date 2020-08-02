@@ -1,6 +1,8 @@
+
+
 .details-img{
-    width: 40%;
-    height: auto;
+    width: 318px;
+    height: 472px;
     margin-top: 100px;
     position: static;
     top: 0;
@@ -9,11 +11,14 @@
     border:1px solid black;
   }
 
+  .img-buttons-container {
+    width: 400px;
+  }
+
   .book-description{
     font-style: italic;
   }
 
-  .button-distance{
-    margin-right: 10px;
+  .text-content {
+    text-align: right;
   }
- 

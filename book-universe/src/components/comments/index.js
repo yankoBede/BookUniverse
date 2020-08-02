@@ -1,45 +1,35 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.css'
 import Comment from '../comment'
 
-class Comments extends Component {
-  constructor(props) {
-    super(props)
+const Comments = (props) => {
+  const [comments, setComments] = useState([])
 
-    this.state = {
-      comments: []
-    }
+  const getComments = async () => {
+    const promise = await fetch(`http://localhost:9999/api/comment`)
+    const allComments = await promise.json()
+    const specificComments = allComments.filter(c => c.book._id === props.bookId)
+    setComments(specificComments)
   }
 
-  getComments = async () => {
-    const promise = await fetch(`http://localhost:9999/api/comment`)
-    const comments = await promise.json()
-    this.setState({
-        comments
+  const renderComments = () => {
+    return comments.map((comment) => {
+      return (
+        <Comment key={comment._id} {...comment} />
+      )
     })
   }
 
-  renderComments() {
-    const { comments } = this.state
+  useEffect(() => {
+    getComments()
+  },[])
 
-    return comments.map((comment) => {
-        return (
-          <Comment key={comment._id} {...comment} />
-        )
-      })
-  }
-
-  componentDidMount() {
-    this.getComments()
-  }
-
-  render() {
-    return (
-      <div className={styles["comments-wrapper"]}>
-        {this.renderComments()}
-      </div>
-    )
-  }
+  return (
+    <div className={styles["comments-wrapper"]}>
+      <p><strong>Readers comments</strong></p>
+      {renderComments()}
+    </div>
+  )
 }
 
 export default Comments

@@ -21,8 +21,8 @@ const Navigation = () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/addBook" component={AddNewBook} />
-        <Route path="/books/:id" exact component={BookDetails}/> 
-        <Route path="/books/:id/comment" component={AddCommentPage}/> 
+        <Route path="/books/:bookId" exact component={BookDetails}/> 
+        <Route path="/books/:bookId/comment" component={AddCommentPage}/> 
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>

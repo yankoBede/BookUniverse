@@ -1,64 +1,58 @@
-import React, { Component } from 'react'
+import React, { useState, useh } from 'react'
 import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
 import TextArea from '../../components/textarea';
+import getCookie from '../../utils/getCookie'
+import { useHistory } from 'react-router-dom';
 
-class AddCommentPage extends Component {
-    constructor(props) {
-      super(props)
-      
-      this.state = {
-        content: "",
-        createdAt: ""
-      }
-    }
-  
-    onChange = (event, type) => {
-      const newState = {}
-      newState[type] = event.target.value
-  
-      this.setState(newState)
-    }
+const AddCommentPage = (props) => {
+    const [content, setContent] = useState('')
+    const history = useHistory();
 
-    onSubmitHadler = async (event) =>  {
+    const onSubmitHadler = async (event) =>  {
         event.preventDefault();
-    
-        const {
-          content
-        } = this.state
+
+        const createdAt = Date()
+
+        const promise = await fetch('http://localhost:9999/api/comment', {
+          method: 'POST',
+          body: JSON.stringify({
+            content,
+            createdAt,
+            book: props.match.params.bookId
+          }),
+          headers: {
+              'Content-Type': 'application/json',
+              'x-auth-token': getCookie('x-auth-token')
+          }
+        })
+
+   
+        history.goBack()
     }
   
-    render() {
-      const {
-          content
-      } = this.state
-  
-      return (
-        <PageLayout>
-   
-      <div className="row">
+    return (
+      <PageLayout>
+        <div className="row">
           <div className="col-md-4"></div>
           <div className="col-md-4">
-          <Title title="Add a new book" />
-              <form onSubmit={this.onSubmitHadler}>
-                  <TextArea
-                      value={content}
-                      onChange={(e) => this.onChange(e, 'content')}
-                      label="Title"
-                      id="title"
-                      divClass="form-group"
-                      inputClass="form-control"
-                      name="title"
-                      placeholder="Fill your comment"/>
-  
-                  <button className="btn btn-primary">Create</button>
-              </form>
+            <Title title="Add a new book" />
+            <form onSubmit={onSubmitHadler}>
+              <TextArea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                label="Title"
+                id="title"
+                divClass="form-group"
+                inputClass="form-control"
+                name="title"
+                placeholder="Fill your comment"/>
+              <button className="btn btn-primary">Create</button>
+            </form>
           </div>
-          </div>
-  
-        </PageLayout>
+        </div>
+      </PageLayout>
       )
-    }
-  }
+}
   
-  export default AddCommentPage
+export default AddCommentPage

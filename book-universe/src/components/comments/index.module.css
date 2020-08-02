@@ -1,5 +1,4 @@
 .comments-wrapper {
-    width: 100%;
-    /* border:1px solid red; */
-    height: 45vh;
+    margin-bottom: 40px;
+    float: right;
   }
