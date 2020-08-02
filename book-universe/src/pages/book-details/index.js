@@ -4,10 +4,13 @@ import Comments from '../../components/comments'
 import styles from './index.module.css'
 import UserContext from '../../Context'
 import BookButtonsPanel from '../../components/book-buttons-panel'
+import TextArea from '../../components/textarea'
+import getCookie from '../../utils/getCookie'
 
 const BookDetails = (props) => {
   const [book, setBook] = useState()
   const [isCreator, setIsCreator] = useState(false)
+  const [content, setContent] = useState()
   const context = useContext(UserContext);
 
   const getBook = async () => {
@@ -28,7 +31,27 @@ const BookDetails = (props) => {
     props.history.push(`/books/${book._id}/comment`)
   }
 
-    console.log(isCreator)
+  const commentHandler = async (event) =>  {
+    event.preventDefault();
+
+    const createdAt = Date()
+
+    const promise = await fetch('http://localhost:9999/api/comment', {
+      method: 'POST',
+      body: JSON.stringify({
+        content,
+        createdAt,
+        book: props.match.params.bookId
+      }),
+      headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': getCookie('x-auth-token')
+      }
+    })
+
+    setContent('')
+}
+
     if(!book) {
         return (<PageLayout>
           <p><strong className="infoType"> LOADING...</strong> </p>
@@ -52,7 +75,23 @@ const BookDetails = (props) => {
                             <p><strong className={styles["book-description"]}>Description:</strong> {book.description}</p>
                         </div>
                         <hr/>
-                        <Comments bookId={props.match.params.bookId} />
+                        <Comments latestComment={content} bookId={props.match.params.bookId} />
+
+                        <div className={styles['add-comment-wrapper']}>
+                          <form onSubmit={commentHandler}>
+                            <TextArea
+                              value={content}
+                              onChange={(e) => setContent(e.target.value)}
+                              id="title"
+                              divClass="form-group"
+                              inputClass="form-control"
+                              name="title"
+                              placeholder="Fill your comment"/>
+                              <div className={styles['comment-button']}>
+                                <button className="btn btn-info">Comment</button>
+                              </div>
+                          </form>
+                        </div>
                 </div>
             </div>
             </PageLayout>)

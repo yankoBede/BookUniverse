@@ -1,24 +1,31 @@
-
-
 .details-img{
-    width: 318px;
-    height: 472px;
-    margin-top: 100px;
-    position: static;
-    top: 0;
-    left: 0;
-    transform: none;
-    border:1px solid black;
-  }
+  width: 318px;
+  height: 472px;
+  margin-top: 100px;
+  position: static;
+  top: 0;
+  left: 0;
+  transform: none;
+  border:1px solid black;
+}
 
-  .img-buttons-container {
-    width: 400px;
-  }
+.img-buttons-container {
+  width: 400px;
+}
 
-  .book-description{
-    font-style: italic;
-  }
+.book-description{
+  font-style: italic;
+}
 
-  .text-content {
-    text-align: right;
-  }
+.text-content {
+  text-align: right;
+}
+
+.add-comment-wrapper {
+  margin-bottom: 50px;
+}
+
+.comment-button {
+  display: flex;
+  justify-content: flex-end;
+}

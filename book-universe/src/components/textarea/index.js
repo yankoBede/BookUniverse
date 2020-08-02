@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './index.module.css'
 
 const TextArea = ({
   label, 
@@ -13,7 +14,7 @@ const TextArea = ({
   return (
     <div className={divClass}>
       <label htmlFor={id}>{label}</label>
-      <textarea id={id} name={name} value={value} onChange={onChange} className={inputClass} placeholder={placeholder}/>
+      <textarea id={id} name={name} value={value} rows="10" onChange={onChange} className={inputClass} placeholder={placeholder}/>
     </div>
   )
 }

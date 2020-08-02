@@ -23,6 +23,7 @@ const Navigation = () => {
         <Route path="/addBook" component={AddNewBook} />
         <Route path="/books/:bookId" exact component={BookDetails}/> 
         <Route path="/books/:bookId/comment" component={AddCommentPage}/> 
+        <Route path="/books/:bookId/comment/commentId" component={AddCommentPage}/> 
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>

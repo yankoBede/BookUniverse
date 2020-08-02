@@ -36,12 +36,12 @@ const AddCommentPage = (props) => {
         <div className="row">
           <div className="col-md-4"></div>
           <div className="col-md-4">
-            <Title title="Add a new book" />
+            <Title title="Leave a comment for book" />
             <form onSubmit={onSubmitHadler}>
               <TextArea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                label="Title"
+                label="Leave a comment"
                 id="title"
                 divClass="form-group"
                 inputClass="form-control"

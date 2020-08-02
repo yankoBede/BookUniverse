@@ -3,7 +3,7 @@ import UserContext from '../../Context'
 
 const BookButtonsPanel = (props) => {
     const context = useContext(UserContext);
-    console.log(props)
+
     if (context.user.loggedIn) {
         if(props.isCreator) {
             
