@@ -23,7 +23,8 @@ const BookSchema = new mongoose.Schema({
   },
   creator: {
     type: 'ObjectId',
-    ref: 'User'
+    ref: 'User',
+    required: [true, 'Creator is required']
   },
   comments: [{
     type: 'ObjectId',

@@ -11,11 +11,13 @@ const CommentSchema = new mongoose.Schema({
   },
   creator: {
     type: 'ObjectId',
-    ref: 'User'
+    ref: 'User',
+    required: [true, 'Creator is required']
   },
   book: {
     type: 'ObjectId',
-    ref: 'Book'
+    ref: 'Book',
+    required: [true, 'Book is required']
   },
   isDeleted: {
     type: 'Boolean',
