@@ -4,10 +4,12 @@ import Comments from '../../components/comments'
 import styles from './index.module.css'
 import UserContext from '../../Context'
 import BookButtonsPanel from '../../components/book-buttons-panel'
-import TextArea from '../../components/textarea'
 import getCookie from '../../utils/getCookie'
+import AddComment from '../../components/add-comment'
+import { useToasts } from 'react-toast-notifications'
 
 const BookDetails = (props) => {
+  const { addToast, removeToast } = useToasts()
   const [book, setBook] = useState()
   const [isCreator, setIsCreator] = useState(false)
   const [content, setContent] = useState()
@@ -29,11 +31,17 @@ const BookDetails = (props) => {
 
   const onCommentClick = (event) => {
     event.preventDefault()
+    
     props.history.push(`/books/${book._id}/comment`)
   }
 
-  const commentHandler = async (event) =>  {
+  const sumbitCommentHandler = async (event) =>  {
     event.preventDefault();
+
+    if(!content) {
+      publishNotification('Please fill your comment', 'error')
+      return
+    } 
 
     const createdAt = Date()
 
@@ -52,7 +60,16 @@ const BookDetails = (props) => {
 
     setAddedComment(content)
     setContent('')
-}
+    publishNotification('Your comment was added successfully', 'success')
+ } 
+
+ const publishNotification = (message, notificationType) => {
+  const toast = addToast(message, { appearance: notificationType })
+
+  setInterval(function() {
+    removeToast(toast)
+  }, 3000);
+ }
 
     if(!book) {
         return (<PageLayout>
@@ -70,30 +87,15 @@ const BookDetails = (props) => {
                       </div>
                     </div>
                     <div className="col-6">
-                        <div>
-                            <h2 className="display-5">{book.title}</h2>
-                            <h4>{book.author}</h4>
-                            <br></br>
-                            <p><strong className={styles["book-description"]}>Description:</strong> {book.description}</p>
-                        </div>
-                        <hr/>
-                        <Comments addedComment={addedComment} bookId={props.match.params.bookId} />
-
-                        <div className={styles['add-comment-wrapper']}>
-                          <form onSubmit={commentHandler}>
-                            <TextArea
-                              value={content}
-                              onChange={(e) => setContent(e.target.value)}
-                              id="title"
-                              divClass="form-group"
-                              inputClass="form-control"
-                              name="title"
-                              placeholder="Fill your comment"/>
-                              <div className={styles['comment-button']}>
-                                <button className="btn btn-info">Comment</button>
-                              </div>
-                          </form>
-                        </div>
+                      <div>
+                          <h2 className="display-5">{book.title}</h2>
+                          <h4>{book.author}</h4>
+                          <br></br>
+                          <p><strong className={styles["book-description"]}>Description:</strong> {book.description}</p>
+                      </div>
+                      <hr/>
+                      <Comments addedComment={addedComment} bookId={props.match.params.bookId} />
+                      <AddComment content={content} sumbitCommentHandler={sumbitCommentHandler} onChangeHandler={(e) => setContent(e.target.value)} />
                 </div>
             </div>
             </PageLayout>)

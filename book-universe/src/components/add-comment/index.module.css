@@ -1,0 +1,9 @@
+.add-comment-wrapper {
+    margin-bottom: 50px;
+  }
+  
+.comment-button {
+    display: flex;
+    color: red;
+    justify-content: flex-end;
+}

@@ -20,12 +20,3 @@
 .text-content {
   text-align: right;
 }
-
-.add-comment-wrapper {
-  margin-bottom: 50px;
-}
-
-.comment-button {
-  display: flex;
-  justify-content: flex-end;
-}

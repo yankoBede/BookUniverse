@@ -22,7 +22,6 @@ const Comments = (props) => {
   }
 
   useEffect(() => {
-    console.log('hoi')
     getComments()
   },[getComments])
 
