@@ -25,10 +25,10 @@ const BookDetails = (props) => {
     getBook()
   },[])
 
-  const onCommentClick = (event) => {
+  const onBookEditClick = (event) => {
     event.preventDefault()
     
-    props.history.push(`/books/${book._id}/comment`)
+    props.history.push(`/books/${book._id}/edit`)
   }
 
     if(!book) {
@@ -43,7 +43,7 @@ const BookDetails = (props) => {
                     <div className="col-3">
                       <div>
                         <img className={styles["details-img"]} src={book.imageUrl}/>
-                        <BookButtonsPanel isCreator={isCreator}/>
+                        <BookButtonsPanel onBookEditClick={onBookEditClick} isCreator={isCreator}/>
                       </div>
                     </div>
                     <div className="col-6">

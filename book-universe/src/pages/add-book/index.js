@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
-import Input from '../../components/input';
-import TextArea from '../../components/textarea';
+import BookForm from '../../components/book-form';
 import getCookie from '../../utils/getCookie'
+import { useHistory } from "react-router-dom"
 
 const AddNewBookPage = () => {
   const [author, setAuthor] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
+  const history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -32,63 +33,29 @@ const AddNewBookPage = () => {
     })
 
     const response = await promise.json();
+    history.push('/')
   }
 
  
     return (
       <PageLayout>
- 
-    <div className="row">
-        <div className="col-md-4"></div>
-        <div className="col-md-4">
-        <Title title="Add a new book" />
-            <form onSubmit={submitHandler}>
-                <Input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    label="Title"
-                    id="title"
-                    name="title"
-                    divClass="form-group"
-                    inputClass="form-control"
-                    type="text"
-                    placeholder="The book title is..."/>
-                <Input
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                    label="Author"
-                    id="author"
-                    name="author"
-                    divClass="form-group"
-                    inputClass="form-control"
-                    type="text"
-                    placeholder="The book author is..."/>
-                <TextArea 
-                    value={description}  
-                    name="description" 
-                    id="description" 
-                    divClass="form-group"
-                    inputClass="form-control"
-                    placeholder="A little bit information about the book." 
-                    required 
-                    onChange={(e) => setDescription(e.target.value)}>
-                </TextArea>
-                <Input
-                    value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)}
-                    label="Image Url"
-                    id="imageUrl"
-                    name="imageUrl"
-                    divClass="form-group"
-                    inputClass="form-control"
-                    type="text"
-                    placeholder="https://..."/>
-
-                <button className="btn btn-primary">Create</button>
-            </form>
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4">
+            <Title title="Add a new book" />
+            <BookForm  
+                    submitHandler={submitHandler}
+                    buttonText="Create"
+                    title={title}
+                    setTitle={setTitle}
+                    author={author}
+                    setAuthor={setAuthor}
+                    description={description}
+                    setDescription={setDescription}
+                    imageUrl={imageUrl}
+                    setImageUrl={setImageUrl}/>
+          </div>
         </div>
-        </div>
-
       </PageLayout>
     )
   

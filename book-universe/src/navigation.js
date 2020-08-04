@@ -11,6 +11,7 @@ import ErrorPage from './pages/error'
 import AddNewBook from './pages/add-book'
 import BookDetails from './pages/book-details'
 import EditCommentPage from './pages/edit-comment'
+import EditBookPage from './pages/edit-book'
 
 const Navigation = () => {
 
@@ -22,6 +23,7 @@ const Navigation = () => {
         <Route path="/register" component={RegisterPage} />
         <Route path="/addBook" component={AddNewBook} />
         <Route path="/books/:bookId" exact component={BookDetails}/> 
+        <Route path="/books/:bookId/edit" exact component={EditBookPage}/> 
         <Route path="/books/:bookId/comment/:commentId" component={EditCommentPage}/> 
         <Route component={ErrorPage} />
       </Switch>
