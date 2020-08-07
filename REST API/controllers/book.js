@@ -45,9 +45,10 @@ module.exports = {
              author,
              title,
              description,
-             imageUrl
+             imageUrl,
+             usersLiked
             } = req.body;
-        models.Book.updateOne({ _id: id }, { author, title, description, imageUrl })
+        models.Book.updateOne({ _id: id }, { author, title, description, imageUrl, usersLiked })
             .then((updatedBook) => res.send(updatedBook))
             .catch(next)
     },

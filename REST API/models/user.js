@@ -21,6 +21,11 @@ const userSchema = new Schema({
         require: true
     },
 
+    likedBooks: [{
+        type: 'ObjectId',
+        ref: 'Book'
+    }],
+
     books: [{ type: ObjectId, ref: "Book" }],
     comments: [{ type: ObjectId, ref: "Comments" }]
 

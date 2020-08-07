@@ -11,31 +11,30 @@ const EditBookPage = (props) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
+  const [createdAt, setCreatedAt] = useState('')
   const history = useHistory();
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+      e.preventDefault()
 
-    const createdAt = Date()
+      const promise = await fetch(`http://localhost:9999/api/book/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+              author,
+              title,
+              description,
+              imageUrl,
+              createdAt
+          }),
+          headers: {
+              'Content-Type': 'application/json',
+              'x-auth-token': getCookie('x-auth-token')
+          }
+      })
 
-    const promise = await fetch(`http://localhost:9999/api/book/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                author,
-                title,
-                description,
-                imageUrl,
-                createdAt
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': getCookie('x-auth-token')
-            }
-        })
-
-        const response = await promise.json();
-        history.goBack()
-    }
+      const response = await promise.json();
+      history.goBack()
+  }
 
     const getBook = async () => {
         const promise = await fetch(`http://localhost:9999/api/book`)
@@ -47,6 +46,7 @@ const EditBookPage = (props) => {
         setTitle(book.title) 
         setDescription(book.description) 
         setImageUrl(book.imageUrl) 
+        setCreatedAt(book.createdAt)
       }
       
       useEffect( () => {

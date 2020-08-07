@@ -3,7 +3,8 @@ import UserContext from '../../Context'
 
 const BookButtonsPanel = (props) => {
     const context = useContext(UserContext);
-
+    console.log('liked', props.isLiked)
+    
     if (context.user.loggedIn) {
         if(props.isCreator) {
             return (
@@ -13,12 +14,19 @@ const BookButtonsPanel = (props) => {
                 </div>
             )
         } else {
-            return (
-                <div>
-                    <button type="button" className="btn btn-warning">Like</button>
-                    <button type="button" className="btn btn-secondary">Dislike</button>
-                </div>
-            )
+            if (props.isLiked) {
+                return (                
+                    <div>
+                        <button type="button" onClick={props.onDislikeClick} className="btn btn-secondary">Dislike</button>
+                    </div>
+                    )
+            } else {
+                    return (                
+                    <div>
+                        <button type="button" onClick={props.onLikeClick} className="btn btn-warning">Like</button>
+                    </div>
+                    )
+            }
         }
     }
     return null
