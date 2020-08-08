@@ -6,6 +6,7 @@ import BookForm from '../../components/book-form'
 import { useHistory } from "react-router-dom"
 
 const EditBookPage = (props) => {
+  const [book, setBook] = useState()
   const [id, setId] = useState()
   const [author, setAuthor] = useState('')
   const [title, setTitle] = useState('')
@@ -20,6 +21,7 @@ const EditBookPage = (props) => {
       const promise = await fetch(`http://localhost:9999/api/book/${id}`, {
           method: 'PUT',
           body: JSON.stringify({
+            ...book,
               author,
               title,
               description,
@@ -40,6 +42,7 @@ const EditBookPage = (props) => {
         const promise = await fetch(`http://localhost:9999/api/book`)
         const books = await promise.json()
         const book = books.filter(x => x._id === props.match.params.bookId)[0]
+        console.log(book)
     
         setId(book._id)
         setAuthor(book.author) 
@@ -47,6 +50,7 @@ const EditBookPage = (props) => {
         setDescription(book.description) 
         setImageUrl(book.imageUrl) 
         setCreatedAt(book.createdAt)
+        setBook(book)
       }
       
       useEffect( () => {

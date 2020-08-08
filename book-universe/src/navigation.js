@@ -5,6 +5,9 @@ import {
   Route
 } from 'react-router-dom'
 import BooksList from './pages/books-list'
+import FavouriteBooksList from './pages/favourite-books'
+import AddedByMeBooksList from './pages/my-books'
+import TopBooksList from './pages/top-books'
 import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
 import ErrorPage from './pages/error'
@@ -18,7 +21,10 @@ const Navigation = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={BooksList} />
+        <Route path="/all" exact component={BooksList} />
+        <Route path="/" exact component={TopBooksList} />
+        <Route path="/liked" exact component={FavouriteBooksList} />
+        <Route path="/myBooks" exact component={AddedByMeBooksList} />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/addBook" component={AddNewBook} />

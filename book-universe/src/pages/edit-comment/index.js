@@ -13,7 +13,7 @@ const EditCommentPage = (props) => {
     const onSubmitHadler = async (event) =>  {
         event.preventDefault();
 
-        const promise = await fetch(`http://localhost:9999/api/comment/${props.match.params.commentId}`, {
+        await fetch(`http://localhost:9999/api/comment/${props.match.params.commentId}`, {
           method: 'PUT',
           body: JSON.stringify({
             ...comment,
@@ -24,7 +24,6 @@ const EditCommentPage = (props) => {
               'x-auth-token': getCookie('x-auth-token')
           }
         })
-
    
         history.goBack()
     }

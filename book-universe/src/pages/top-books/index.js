@@ -3,13 +3,13 @@ import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
 import Books from '../../components/books'
 
-const BooksList = (props) => {
+const FavouriteBooksList = (props) => {
     return (
       <PageLayout>
-        <Title title="Books" />
-        <Books />
+        <Title title="My favourite books" />
+        <Books topBooks={true} />
       </PageLayout>
     )
 }
 
-export default BooksList
+export default FavouriteBooksList

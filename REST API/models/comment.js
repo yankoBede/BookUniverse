@@ -6,7 +6,7 @@ const CommentSchema = new mongoose.Schema({
     required: [true, 'Comment content is required']
   },
   createdAt: {
-    type: 'String',
+    type: 'Date',
     required: [true, 'Created at is required']
   },
   creator: {

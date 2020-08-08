@@ -44,12 +44,7 @@ const BookDetails = (props) => {
     const promise = await fetch(`http://localhost:9999/api/book/${book._id}`, {
       method: 'PUT',
       body: JSON.stringify({
-          author: book.author,
-          title: book.title,
-          description: book.description,
-          imageUrl: book.imageUrl,
-          createdAt: book.createdAt,
-          usersLiked: book.usersLiked
+        ...book
       }),
       headers: {
           'Content-Type': 'application/json',
@@ -67,12 +62,7 @@ const BookDetails = (props) => {
     const promise = await fetch(`http://localhost:9999/api/book/${book._id}`, {
       method: 'PUT',
       body: JSON.stringify({
-          author: book.author,
-          title: book.title,
-          description: book.description,
-          imageUrl: book.imageUrl,
-          createdAt: book.createdAt,
-          usersLiked: book.usersLiked
+          ...book
       }),
       headers: {
           'Content-Type': 'application/json',
@@ -83,6 +73,8 @@ const BookDetails = (props) => {
 
     setIsLiked(false)
   }
+
+
 
     if(!book) {
         return (<PageLayout>

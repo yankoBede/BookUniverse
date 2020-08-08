@@ -18,7 +18,7 @@ const AddCommnet = (props) => {
             return
         } 
 
-        const createdAt = Date()
+        const createdAt = new Date()
 
         const promise = await fetch('http://localhost:9999/api/comment', {
         method: 'POST',

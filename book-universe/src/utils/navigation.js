@@ -1,13 +1,28 @@
 const getNavigation = (user) => {
   const authLinks = [
     {
+      title: "Home",
+      link: "/",
+      position: "left"
+    },
+    {
       title: "Add a new book",
       link: "/addBook",
       position: "left"
     },
     {
+      title: "My favourite books",
+      link: "/liked",
+      position: "left"
+    },
+    {
+      title: "All books",
+      link: "/all",
+      position: "left"
+    },
+    {
       title: `Hello,  ${ user ? user.username : null}`,
-      link: "/",
+      link: "/myBooks",
       position: "right"
     },
     {
@@ -19,7 +34,7 @@ const getNavigation = (user) => {
 
   const guestLinks = [
     {
-      title: "Books",
+      title: "Home",
       link: "/",
       position: "left"
     },

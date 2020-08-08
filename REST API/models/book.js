@@ -18,7 +18,7 @@ const BookSchema = new mongoose.Schema({
     required: [true, 'Image Url is required']
   },
   createdAt: {
-    type: 'String',
+    type: 'Date',
     required: [true, 'Created at is required']
   },
   creator: {

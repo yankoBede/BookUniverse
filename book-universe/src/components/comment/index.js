@@ -1,14 +1,15 @@
 import React, {useContext} from 'react'
 import styles from './index.module.css'
 import CommentButtonsPanel from '../../components/comment-buttons-panel'
+import getFormattedDate from '../../utils/getFormattedDate'
 
-
-const Comment = ({ content, creator, _id, setDeletedComment, book }) => {
+const Comment = ({ content, creator, _id, setDeletedComment, book, createdAt }) => {
+  
   return (
     <div className={styles.container}>
       <div>
         <small>
-            [04.05.2020]
+          { getFormattedDate(new Date(createdAt)) }
         </small>
         <div>
           <strong>

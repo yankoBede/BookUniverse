@@ -1,47 +1,49 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from './index.module.css'
 import BookInfo from '../book-info'
+import UserContext from '../../Context'
 
-class Books extends Component {
-  constructor(props) {
-    super(props)
+const Books = (props) => {
+  const context = useContext(UserContext);
+  const [books, setBooks] = useState()
 
-    this.state = {
-      books: []
+  const getBooks = async () => {
+    const promise = await fetch(`http://localhost:9999/api/book`)
+    const allBooks = await promise.json()
+
+    if(props.onlyLiked) {
+      const favouriteBooks = allBooks.filter(x => x.usersLiked.includes(context.user.id))
+      setBooks(favouriteBooks)
+    } else if (props.addedByMe) {
+      const addedByMeBooks = allBooks.filter(x => x.creator._id === context.user.id)
+      setBooks(addedByMeBooks)
+    } if (props.topBooks) {
+      const mostLikedBooks = allBooks.sort((a, b) => b.usersLiked - a.usersLiked).slice(0, 5)
+      setBooks(mostLikedBooks)
+    } else {
+     setBooks(allBooks)
     }
   }
 
-  getBooks = async () => {
-    const { length } = this.props
-    const promise = await fetch(`http://localhost:9999/api/book?length=${length}`)
-    const books = await promise.json()
-
-    this.setState({
-        books
-    })
+  const renderBooks = () => {
+    if (books) {
+      return books.map((book, index) => {
+        return (
+          <BookInfo key={book._id} index={index} {...book} />
+        )
+      })
+    }
   }
 
-  renderBooks() {
-    const { books } = this.state
+  useEffect(() => {
+    getBooks()
+  }, [])
 
-    return books.map((book, index) => {
-      return (
-        <BookInfo key={book._id} index={index} {...book} />
-      )
-    })
-  }
-
-  componentDidMount() {
-    this.getBooks()
-  }
-
-  render() {
-    return (
-      <div className={styles.books}>
-        {this.renderBooks()}
-      </div>
-    )
-  }
+  return (
+    <div className={styles.books}>
+      {renderBooks()}
+    </div>
+  )
 }
 
 export default Books

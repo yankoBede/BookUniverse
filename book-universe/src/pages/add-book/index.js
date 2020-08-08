@@ -15,7 +15,7 @@ const AddNewBookPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
 
-    const createdAt = Date()
+    const createdAt = new Date()
 
     const promise = await fetch('http://localhost:9999/api/book', {
       method: 'POST',

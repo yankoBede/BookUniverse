@@ -3,7 +3,6 @@ import UserContext from '../../Context'
 
 const BookButtonsPanel = (props) => {
     const context = useContext(UserContext);
-    console.log('liked', props.isLiked)
     
     if (context.user.loggedIn) {
         if(props.isCreator) {
