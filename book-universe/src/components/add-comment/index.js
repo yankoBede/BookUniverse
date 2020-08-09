@@ -14,24 +14,22 @@ const AddCommnet = (props) => {
     const sumbitCommentHandler = async (event) =>  {
         event.preventDefault();
 
-        if(!content) {
+        if(!content.trim()) {
             publishNotification('Please fill your comment', 'error', addToast, removeToast)
             return
         } 
 
-        const createdAt = new Date()
-
-        const promise = await fetch('http://localhost:9999/api/comment', {
-        method: 'POST',
-        body: JSON.stringify({
-            content,
-            createdAt,
-            book: props.bookId
-        }),
-        headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': getCookie('x-auth-token')
-        }
+        await fetch('http://localhost:9999/api/comment', {
+            method: 'POST',
+            body: JSON.stringify({
+                content: content.trim(),
+                createdAt: new Date(),
+                book: props.bookId
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': getCookie('x-auth-token')
+            }
         })
 
         props.setAddedComment(content)

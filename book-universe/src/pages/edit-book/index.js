@@ -3,9 +3,12 @@ import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
 import getCookie from '../../utils/getCookie'
 import BookForm from '../../components/book-form'
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
+import { useToasts } from 'react-toast-notifications'
+import publishNotification from '../../utils/publishNotification'
 
 const EditBookPage = (props) => {
+  const { addToast, removeToast } = useToasts()
   const [book, setBook] = useState()
   const [id, setId] = useState()
   const [author, setAuthor] = useState('')
@@ -18,14 +21,24 @@ const EditBookPage = (props) => {
   const submitHandler = async (e) => {
       e.preventDefault()
 
+      if (!author.trim() || !title.trim() || !description.trim() || !imageUrl.trim()) {
+        publishNotification('Please fill all the fields', 'error', addToast, removeToast)
+        return
+      }
+  
+      if(!(imageUrl.startsWith('http://') || imageUrl.startsWith('https://'))) {
+        publishNotification('Please add a valid image url', 'error', addToast, removeToast)
+        return
+      }
+
       const promise = await fetch(`http://localhost:9999/api/book/${id}`, {
           method: 'PUT',
           body: JSON.stringify({
             ...book,
-              author,
-              title,
-              description,
-              imageUrl,
+              author: author.trim(),
+              title: title.trim(),
+              description: description.trim(),
+              imageUrl: imageUrl.trim(),
               createdAt
           }),
           headers: {
@@ -34,7 +47,8 @@ const EditBookPage = (props) => {
           }
       })
 
-      const response = await promise.json();
+      publishNotification(`Book ${title} has been updated`, 'error', addToast, removeToast)
+
       history.goBack()
   }
 

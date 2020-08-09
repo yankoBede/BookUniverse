@@ -18,7 +18,7 @@ const AddNewBookPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
 
-    if (!author || !title || !description || !imageUrl) {
+    if (!author.trim() || !title.trim() || !description.trim() || !imageUrl.trim()) {
       publishNotification('Please fill all the fields', 'error', addToast, removeToast)
       return
     }
@@ -31,10 +31,10 @@ const AddNewBookPage = () => {
     await fetch('http://localhost:9999/api/book', {
       method: 'POST',
       body: JSON.stringify({
-        author,
-        title,
-        description,
-        imageUrl,
+        author: author.trim(),
+        title: title.trim(),
+        description: description.trim(),
+        imageUrl: imageUrl.trim(),
         createdAt: new Date()
       }),
       headers: {

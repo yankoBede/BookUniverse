@@ -5,27 +5,36 @@ import TextArea from '../../components/textarea';
 import getCookie from '../../utils/getCookie'
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css'
+import { useToasts } from 'react-toast-notifications'
+import publishNotification from '../../utils/publishNotification'
 
 const EditCommentPage = (props) => {
+    const { addToast, removeToast } = useToasts()
     const [content, setContent] = useState('')
-    const [initialContent, setInitialContent] = useState('')
     const history = useHistory();
     const [comment, setComment] = useState('')
 
     const onSubmitHadler = async (event) =>  {
         event.preventDefault();
 
+        if (!content.trim()) {
+          publishNotification('The comment is empty!', 'error', addToast, removeToast)
+          return
+        }
+
         await fetch(`http://localhost:9999/api/comment/${props.match.params.commentId}`, {
           method: 'PUT',
           body: JSON.stringify({
             ...comment,
-            content
+            content: content.trim()
           }),
           headers: {
               'Content-Type': 'application/json',
               'x-auth-token': getCookie('x-auth-token')
           }
         })
+
+        publishNotification('Your comment is updated successfully!', 'info', addToast, removeToast)
    
         history.goBack()
     }
@@ -40,7 +49,6 @@ const EditCommentPage = (props) => {
       const currentComment = comments.filter(x => x._id === props.match.params.commentId)[0]
       setContent(currentComment.content)
       setComment(currentComment) 
-      setInitialContent(currentComment.content)
     }
 
     return (
