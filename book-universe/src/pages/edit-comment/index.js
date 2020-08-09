@@ -3,12 +3,13 @@ import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
 import TextArea from '../../components/textarea';
 import getCookie from '../../utils/getCookie'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styles from './index.module.css'
 import { useToasts } from 'react-toast-notifications'
 import publishNotification from '../../utils/publishNotification'
 
 const EditCommentPage = (props) => {
+    const { commentId } = useParams();
     const { addToast, removeToast } = useToasts()
     const [content, setContent] = useState('')
     const history = useHistory();
@@ -22,7 +23,7 @@ const EditCommentPage = (props) => {
           return
         }
 
-        await fetch(`http://localhost:9999/api/comment/${props.match.params.commentId}`, {
+        await fetch(`http://localhost:9999/api/comment/${commentId}`, {
           method: 'PUT',
           body: JSON.stringify({
             ...comment,
@@ -43,10 +44,11 @@ const EditCommentPage = (props) => {
       getComment()  
     }, [])
 
-    const getComment = async () => {
+    const getComment = async (props) => {
+      console.log(props)
       const promise = await fetch(`http://localhost:9999/api/comment`)
       const comments = await promise.json()
-      const currentComment = comments.filter(x => x._id === props.match.params.commentId)[0]
+      const currentComment = comments.filter(x => x._id === commentId)[0]
       setContent(currentComment.content)
       setComment(currentComment) 
     }

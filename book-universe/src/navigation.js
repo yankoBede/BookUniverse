@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   BrowserRouter,
   Switch,
+  Redirect,
   Route
 } from 'react-router-dom'
 import BooksList from './pages/books-list'
@@ -15,22 +16,41 @@ import AddNewBook from './pages/add-book'
 import BookDetails from './pages/book-details'
 import EditCommentPage from './pages/edit-comment'
 import EditBookPage from './pages/edit-book'
+import UserContext from './Context'
 
 const Navigation = () => {
-
+  const context = useContext(UserContext)
+  const loggedIn = context.user && context.user.loggedIn
+  
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/all" exact component={BooksList} />
         <Route path="/" exact component={TopBooksList} />
-        <Route path="/liked" exact component={FavouriteBooksList} />
-        <Route path="/myBooks" exact component={AddedByMeBooksList} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/addBook" component={AddNewBook} />
+        <Route path="/all">
+          {!loggedIn ? (<Redirect to="/login" />) : (<BooksList />)}
+        </Route>
+        <Route path="/liked">
+          {!loggedIn ? (<Redirect to="/login" />) : (<FavouriteBooksList />)}
+        </Route>
+        <Route path="/myBooks">
+          {!loggedIn ? (<Redirect to="/login" />) : (<AddedByMeBooksList />)}
+        </Route>
+        <Route path="/login">
+          {loggedIn ? (<Redirect to="/" />) : (<LoginPage />)}
+        </Route>
+        <Route path="/register">
+          {loggedIn ? (<Redirect to="/" />) : (<RegisterPage />)}
+        </Route>
+        <Route path="/addBook">
+          {!loggedIn ? (<Redirect to="/login" />) : (<AddNewBook />)}
+        </Route>
         <Route path="/books/:bookId" exact component={BookDetails}/> 
-        <Route path="/books/:bookId/edit" exact component={EditBookPage}/> 
-        <Route path="/books/:bookId/comment/:commentId" component={EditCommentPage}/> 
+        <Route path="/books/:bookId/edit">
+          {!loggedIn ? (<Redirect to="/login" />) : (<EditBookPage />)}
+        </Route> 
+        <Route path="/books/:bookId/comment/:commentId">
+          {!loggedIn ? (<Redirect to="/login" />) : (<EditCommentPage />)}
+        </Route>
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>

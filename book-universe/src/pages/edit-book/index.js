@@ -3,11 +3,12 @@ import Title from '../../components/title'
 import PageLayout from '../../components/page-layout'
 import getCookie from '../../utils/getCookie'
 import BookForm from '../../components/book-form'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import publishNotification from '../../utils/publishNotification'
 
 const EditBookPage = (props) => {
+  const { bookId } = useParams();
   const { addToast, removeToast } = useToasts()
   const [book, setBook] = useState()
   const [id, setId] = useState()
@@ -31,7 +32,7 @@ const EditBookPage = (props) => {
         return
       }
 
-      const promise = await fetch(`http://localhost:9999/api/book/${id}`, {
+      await fetch(`http://localhost:9999/api/book/${id}`, {
           method: 'PUT',
           body: JSON.stringify({
             ...book,
@@ -47,7 +48,7 @@ const EditBookPage = (props) => {
           }
       })
 
-      publishNotification(`Book ${title} has been updated`, 'error', addToast, removeToast)
+      publishNotification(`Book ${title} has been updated`, 'info', addToast, removeToast)
 
       history.goBack()
   }
@@ -55,7 +56,7 @@ const EditBookPage = (props) => {
     const getBook = async () => {
         const promise = await fetch(`http://localhost:9999/api/book`)
         const books = await promise.json()
-        const book = books.filter(x => x._id === props.match.params.bookId)[0]
+        const book = books.filter(x => x._id === bookId)[0]
         console.log(book)
     
         setId(book._id)
