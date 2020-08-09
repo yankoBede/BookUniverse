@@ -7,6 +7,7 @@ import Input from '../../components/input';
 import authenticate from '../../utils/authenticate'
 import UserContext from '../../Context'
 import { useToasts } from 'react-toast-notifications'
+import publishNotification from '../../utils/publishNotification'
 
 const LoginPage = (props) => {
   const { addToast, removeToast } = useToasts()
@@ -22,21 +23,13 @@ const LoginPage = (props) => {
       username,
       password
       }, (user) => {
-        publishNotification('You logged successfully', 'success')
+        publishNotification('You logged successfully', 'success', addToast, removeToast)
         context.logIn(user) 
         history.push('/')
       }, e => {
-        publishNotification(e.message, 'error')
+        publishNotification(e.message, 'error', addToast, removeToast)
       }
     )
-  }
-
-  const publishNotification = (message, notificationType) => {
-    const toast = addToast(message, { appearance: notificationType })
-
-    setInterval(function() {
-      removeToast(toast)
-    }, 3000);
   }
 
   return (<PageLayout>

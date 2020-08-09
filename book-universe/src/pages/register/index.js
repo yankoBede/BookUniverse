@@ -6,6 +6,7 @@ import Input from '../../components/input';
 import authenticate from '../../utils/authenticate'
 import UserContext from '../../Context'
 import { useToasts } from 'react-toast-notifications'
+import publishNotification from '../../utils//publishNotification'
 
 const RegisterPage = (props) => {
   const { addToast, removeToast } = useToasts()
@@ -24,9 +25,9 @@ const RegisterPage = (props) => {
     const regex = /^[0-9a-zA-Z(\-)]+$/;
 
     if (value.length < 5 || value.length > 12) {
-      publishNotification('Username must be between 5 and 12 characters', 'error')
+      publishNotification('Username must be between 5 and 12 characters', 'error', addToast, removeToast)
     } else if (!value.match(regex)) {
-      publishNotification('Username must contain only letters and numbers', 'error')
+      publishNotification('Username must contain only letters and numbers', 'error', addToast, removeToast)
     }  
 
     setUsername(value)
@@ -45,7 +46,7 @@ const RegisterPage = (props) => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 
     if (!value.match(regex)) {
-      publishNotification('Password must minimum 8 characters and at least 1 alphabet, 1 mumber and 1 special symbols', 'error')
+      publishNotification('Password must minimum 8 characters and at least 1 alphabet, 1 mumber and 1 special symbols', 'error', addToast, removeToast)
     }  else {
         setPassword(value)
     }
@@ -55,49 +56,31 @@ const RegisterPage = (props) => {
     event.preventDefault();
 
     if (!username || !password || !rePassword) {
-      publishNotification('Please fill all the fields!', 'error')
+      publishNotification('Please fill all the fields!', 'error', addToast, removeToast)
       return
     }
 
     if(password !== rePassword) {
-      publishNotification('Password and Re-Password don\'t match', 'error')
+      publishNotification('Password and Re-Password don\'t match', 'error', addToast, removeToast)
       return
     }
 
     await authenticate('http://localhost:9999/api/user/register', {
         username,
         password
-      }, (user) => {
-        context.logIn(user) 
-        publishNotification('You registered successfully!', 'success')
+      }, () => {
+        publishNotification('You registered successfully!', 'success', addToast, removeToast)
         history.push('/')
       }, e => {
         if(e.message.message) {
-          const toast = addToast('Username is required', { appearance: 'error' })
-          setInterval(function() {
-            removeToast(toast)
-          }, 3000);
+          publishNotification('Username is required', 'error', addToast, removeToast)
         } else if (e.message.code === 11000) {
-          const toast = addToast('Username is already taken', { appearance: 'error' })
-          setInterval(function() {
-            removeToast(toast)
-          }, 3000);
+          publishNotification('Username is already taken', 'error', addToast, removeToast)
         } else if(e.message) {
-          const toast = addToast(e.message.toString(), { appearance: 'error' })
-          setInterval(function() {
-            removeToast(toast)
-          }, 3000);
+          publishNotification(e.message.toString(), 'error', addToast, removeToast)
         }
       }
     )
-  }
-
-  const publishNotification = (message, notificationType) => {
-    const toast = addToast(message, { appearance: notificationType })
-
-    setInterval(function() {
-      removeToast(toast)
-    }, 3000);
   }
 
   return (

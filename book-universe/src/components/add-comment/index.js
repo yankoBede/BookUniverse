@@ -4,6 +4,7 @@ import UserContext from '../../Context'
 import TextArea from '../../components/textarea'
 import getCookie from '../../utils/getCookie'
 import { useToasts } from 'react-toast-notifications'
+import publishNotification from '../../utils/publishNotification'
 
 const AddCommnet = (props) => {
     const [content, setContent] = useState()
@@ -14,7 +15,7 @@ const AddCommnet = (props) => {
         event.preventDefault();
 
         if(!content) {
-            publishNotification('Please fill your comment', 'error')
+            publishNotification('Please fill your comment', 'error', addToast, removeToast)
             return
         } 
 
@@ -35,16 +36,8 @@ const AddCommnet = (props) => {
 
         props.setAddedComment(content)
         setContent('')
-        publishNotification('Your comment was added successfully', 'success')
+        publishNotification('Your comment was added successfully', 'success', addToast, removeToast)
     }
-
- const publishNotification = (message, notificationType) => {
-  const toast = addToast(message, { appearance: notificationType })
-
-  setInterval(function() {
-    removeToast(toast)
-  }, 3000);
- }
 
     if (context.user.loggedIn) {
         return (

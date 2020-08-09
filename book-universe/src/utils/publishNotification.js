@@ -1,8 +1,4 @@
-import { useToasts } from 'react-toast-notifications'
-
-const { addToast, removeToast } = useToasts()
-
-const publishNotification = (message, notificationType) => {
+const publishNotification = (message, notificationType, addToast, removeToast) => {
     const toast = addToast(message, { appearance: notificationType })
 
     setInterval(function() {

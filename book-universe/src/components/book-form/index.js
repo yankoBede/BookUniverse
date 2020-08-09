@@ -1,9 +1,9 @@
 import React from 'react'
-import Title from '../../components/title'
 import Input from '../../components/input'
 import TextArea from '../../components/textarea'
+import styles from './index.module.css'
 
-const BookForm = ({submitHandler, pageTitle, buttonText, title, setTitle, author, setAuthor, description, setDescription, imageUrl, setImageUrl}) => {
+const BookForm = ({submitHandler, buttonText, title, setTitle, author, setAuthor, description, setDescription, imageUrl, setImageUrl}) => {
 
     return (
         <form onSubmit={submitHandler}>
@@ -47,7 +47,9 @@ const BookForm = ({submitHandler, pageTitle, buttonText, title, setTitle, author
                 inputClass="form-control"
                 type="text"
                 placeholder="https://..."/>
-            <button className="btn btn-primary">{buttonText}</button>
+            <div className={styles['buttons-cotainer']}>
+                <button className="btn btn-primary">{buttonText}</button>
+            </div>
         </form>
     )
 }

@@ -4,6 +4,5 @@
   
 .comment-button {
     display: flex;
-    color: red;
     justify-content: flex-end;
 }

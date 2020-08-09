@@ -3,7 +3,7 @@ import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
 import Books from '../../components/books'
 
-const BooksList = (props) => {
+const BooksList = () => {
     return (
       <PageLayout>
         <Title title="Books" />

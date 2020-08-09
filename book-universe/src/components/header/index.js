@@ -1,39 +1,30 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import Link from '../link'
 import styles from './index.module.css'
 import getNavigation from '../../utils/navigation'
 import UserContext from '../../Context'
 
 
-class Header extends Component {
+const Header = () => {
+  const context = useContext(UserContext);
+  const links = getNavigation(context.user)
 
-  static contextType = UserContext
-
-  render() {
-    const { 
-      user
-    } = this.context
-
-    const links = getNavigation(user)
-
-
-    return (
-      <nav>
-       {
-          links.map(navElement => {
-            return (
-              <Link
-                key={navElement.title}
-                href={navElement.link}
-                title={navElement.title}
-                position={navElement.position}
-              />
-            )
-          })
-        }
-      </nav>
-    )
-  }
+  return (
+    <nav className={styles['nav-bar']}>
+      {
+        links.map(navElement => {
+          return (
+            <Link
+              key={navElement.title}
+              href={navElement.link}
+              title={navElement.title}
+              position={navElement.position}
+            />
+          )
+        })
+      }
+    </nav>
+  )
 }
 
 export default Header
