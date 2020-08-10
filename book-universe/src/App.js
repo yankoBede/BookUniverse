@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import UserContext from './Context'
 import getCookie from './utils/getCookie'
+import './index'
 
 const App = (props) => {
   const [user, setUser] = useState(null)
@@ -51,11 +52,11 @@ const App = (props) => {
     })
   }, [])
 
-  if (loading) {
-    return (
-      <div>Loading....</div>
-    )
-  }
+   if (loading) {
+     return (
+       <img className='img' src='https://media.tenor.com/images/0a000667c5aab43ac265d8c86a4bb310/tenor.gif' />
+     )
+   }
 
   return (
     <UserContext.Provider value={{

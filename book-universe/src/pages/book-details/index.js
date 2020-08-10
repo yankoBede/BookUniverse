@@ -6,6 +6,7 @@ import UserContext from '../../Context'
 import BookButtonsPanel from '../../components/book-buttons-panel'
 import AddComment from '../../components/add-comment'
 import getCookie from '../../utils/getCookie'
+import ErrorBoundary from '../../ErrorBoundary'
 
 const BookDetails = (props) => {
   const [book, setBook] = useState()
@@ -21,9 +22,6 @@ const BookDetails = (props) => {
     setIsCreator(context.user.loggedIn && context.user.id === book.creator._id)
     setIsLiked(book.usersLiked.includes(context.user.id))
     setBook(book)
-
-    console.log(book.usersLiked)
-    console.log(context.user.id)
   }
 
   useEffect( () => {
@@ -38,8 +36,6 @@ const BookDetails = (props) => {
 
   const onLikeClick = async (event) => {
     book.usersLiked.push(context.user.id);
-    console.log(book._id)
-    console.log(book.usersLiked)
 
     const promise = await fetch(`http://localhost:9999/api/book/${book._id}`, {
       method: 'PUT',
@@ -104,7 +100,9 @@ const BookDetails = (props) => {
                           <p><strong className={styles["book-description"]}>Description:</strong> {book.description}</p>
                       </div>
                       <hr/>
-                      <Comments addedComment={addedComment} bookId={props.match.params.bookId} />
+                      <ErrorBoundary>
+                        <Comments addedComment={addedComment} bookId={props.match.params.bookId} />
+                      </ErrorBoundary>
                       <AddComment bookId={props.match.params.bookId} setAddedComment={setAddedComment}/>
                 </div>
             </div>

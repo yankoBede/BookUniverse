@@ -45,7 +45,6 @@ const EditCommentPage = (props) => {
     }, [])
 
     const getComment = async (props) => {
-      console.log(props)
       const promise = await fetch(`http://localhost:9999/api/comment`)
       const comments = await promise.json()
       const currentComment = comments.filter(x => x._id === commentId)[0]

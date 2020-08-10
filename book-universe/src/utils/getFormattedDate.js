@@ -1,5 +1,4 @@
 const getFormattedDate = (date) => {
-    console.log()
     var minutes = date.getMinutes();
     var hours = date.getHours();
     var mm = date.getMonth() + 1; // getMonth() is zero-based

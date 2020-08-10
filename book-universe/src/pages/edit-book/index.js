@@ -57,7 +57,6 @@ const EditBookPage = (props) => {
         const promise = await fetch(`http://localhost:9999/api/book`)
         const books = await promise.json()
         const book = books.filter(x => x._id === bookId)[0]
-        console.log(book)
     
         setId(book._id)
         setAuthor(book.author) 
