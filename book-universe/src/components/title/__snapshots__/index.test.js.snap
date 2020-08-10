@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component should render authenticated routes 1`] = `
+<h1
+  className="title"
+>
+  My Test
+</h1>
+`;

@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component should render authenticated routes 1`] = `
+<nav
+  className="nav-bar"
+>
+  <div
+    className="left-list-item"
+  >
+    <a
+      className="link"
+      href="/"
+      onClick={[Function]}
+    >
+      Home
+    </a>
+  </div>
+  <div
+    className="left-list-item"
+  >
+    <a
+      className="link"
+      href="/addBook"
+      onClick={[Function]}
+    >
+      Add a new book
+    </a>
+  </div>
+  <div
+    className="left-list-item"
+  >
+    <a
+      className="link"
+      href="/liked"
+      onClick={[Function]}
+    >
+      My favourite books
+    </a>
+  </div>
+  <div
+    className="left-list-item"
+  >
+    <a
+      className="link"
+      href="/all"
+      onClick={[Function]}
+    >
+      All books
+    </a>
+  </div>
+  <div
+    className="right-list-item"
+  >
+    <a
+      className="link"
+      href="/myBooks"
+      onClick={[Function]}
+    >
+      Hello,  undefined
+    </a>
+  </div>
+  <div
+    className="right-list-item"
+  >
+    <a
+      className="link"
+      href="/"
+      onClick={[Function]}
+    >
+      Logout
+    </a>
+  </div>
+</nav>
+`;
+
+exports[`Header Component should render non-authenticated routes 1`] = `
+<nav
+  className="nav-bar"
+>
+  <div
+    className="left-list-item"
+  >
+    <a
+      className="link"
+      href="/"
+      onClick={[Function]}
+    >
+      Home
+    </a>
+  </div>
+  <div
+    className="right-list-item"
+  >
+    <a
+      className="link"
+      href="/register"
+      onClick={[Function]}
+    >
+      Register
+    </a>
+  </div>
+  <div
+    className="right-list-item"
+  >
+    <a
+      className="link"
+      href="/login"
+      onClick={[Function]}
+    >
+      Login
+    </a>
+  </div>
+</nav>
+`;

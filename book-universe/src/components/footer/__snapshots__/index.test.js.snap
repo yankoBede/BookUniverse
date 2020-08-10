@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Component should render react course link and softuni link 1`] = `
+<footer
+  className="footer"
+>
+  <div
+    className="container"
+  >
+    <p
+      className="text-muted text-center"
+    >
+      <a
+        href="https://softuni.bg/trainings/3023/reactjs--june-2020/internal"
+      >
+        React Course
+      </a>
+      @
+      <a
+        href="https://www.softuni.bg"
+      >
+        SoftUni
+      </a>
+    </p>
+    <p
+      className="text-muted text-center"
+    >
+      All rights reserved © 2020
+    </p>
+  </div>
+</footer>
+`;

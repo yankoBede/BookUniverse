@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page lAYOUT Component should render authenticated routes 1`] = `
+<div
+  className="app"
+>
+  <Header />
+  <div
+    className="container"
+  >
+    <div
+      className="inner-container"
+    />
+  </div>
+  <Footer />
+</div>
+`;
+
+exports[`Page lAYOUT Component should render non-authenticated routes 1`] = `
+<div
+  className="app"
+>
+  <Header />
+  <div
+    className="container"
+  >
+    <div
+      className="inner-container"
+    />
+  </div>
+  <Footer />
+</div>
+`;
