@@ -24,7 +24,7 @@ const BookDetails = (props) => {
     setBook(book)
   }
 
-  useEffect( () => {
+  useEffect(() => {
     getBook()
   },[])
 
@@ -37,7 +37,7 @@ const BookDetails = (props) => {
   const onLikeClick = async (event) => {
     book.usersLiked.push(context.user.id);
 
-    const promise = await fetch(`http://localhost:9999/api/book/${book._id}`, {
+    await fetch(`http://localhost:9999/api/book/${book._id}`, {
       method: 'PUT',
       body: JSON.stringify({
         ...book
@@ -47,15 +47,14 @@ const BookDetails = (props) => {
           'x-auth-token': getCookie('x-auth-token')
       }
     })
-    const response = await promise.json();
 
     setIsLiked(true)
   }
 
   const onDislikeClick = async (event) => {
-    book.usersLiked = book.usersLiked.filter(x => x != context.user.id)
+    book.usersLiked = book.usersLiked.filter(x => x !== context.user.id)
 
-    const promise = await fetch(`http://localhost:9999/api/book/${book._id}`, {
+    await fetch(`http://localhost:9999/api/book/${book._id}`, {
       method: 'PUT',
       body: JSON.stringify({
           ...book
@@ -65,7 +64,6 @@ const BookDetails = (props) => {
           'x-auth-token': getCookie('x-auth-token')
       }
     })
-    const response = await promise.json();
 
     setIsLiked(false)
   }
@@ -83,7 +81,7 @@ const BookDetails = (props) => {
                     <div className="col-1"></div>
                     <div className="col-3">
                       <div>
-                        <img className={styles["details-img"]} src={book.imageUrl}/>
+                        <img className={styles["details-img"]} src={book.imageUrl} alt='book-img'/>
                         <BookButtonsPanel 
                           onLikeClick={onLikeClick}
                           onDislikeClick={onDislikeClick}

@@ -22,7 +22,7 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      return <img className='img' src='http://www.janvandamnatuurfotografie.nl/images/500.png' />
+      return <img className='img' src='http://www.janvandamnatuurfotografie.nl/images/500.png' alt='error-occurred'/>
     }
 
     return (this.props.children)

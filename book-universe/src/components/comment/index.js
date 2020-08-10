@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import styles from './index.module.css'
 import CommentButtonsPanel from '../../components/comment-buttons-panel'
 import getFormattedDate from '../../utils/getFormattedDate'

@@ -1,10 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from "react-router-dom"
 import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
 import Input from '../../components/input';
 import authenticate from '../../utils/authenticate'
-import UserContext from '../../Context'
 import { useToasts } from 'react-toast-notifications'
 import publishNotification from '../../utils//publishNotification'
 
@@ -13,7 +12,6 @@ const RegisterPage = (props) => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
-  const context = useContext(UserContext);
   const history = useHistory()
  
   const usernameChange = (event) => {

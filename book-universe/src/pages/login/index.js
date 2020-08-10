@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Title from '../../components/title'
-import styles from './index.module.css'
 import PageLayout from '../../components/page-layout'
 import Input from '../../components/input';
 import authenticate from '../../utils/authenticate'

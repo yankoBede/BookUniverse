@@ -33,7 +33,7 @@ const CommentButtonsPanel = (props) => {
             }
         })
 
-        const response = await promise.json();
+        await promise.json();
         props.setDeletedComment(props.commentId)
 
         publishNotification('Comment has been deleted', 'warning')

@@ -54,7 +54,7 @@ const App = (props) => {
 
    if (loading) {
      return (
-       <img className='img' src='https://media.tenor.com/images/0a000667c5aab43ac265d8c86a4bb310/tenor.gif' />
+       <img className='img' src='https://media.tenor.com/images/0a000667c5aab43ac265d8c86a4bb310/tenor.gif' alt='Loading' />
      )
    }
 
