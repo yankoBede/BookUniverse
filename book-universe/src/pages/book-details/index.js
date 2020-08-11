@@ -7,6 +7,9 @@ import BookButtonsPanel from '../../components/book-buttons-panel'
 import AddComment from '../../components/add-comment'
 import getCookie from '../../utils/getCookie'
 import ErrorBoundary from '../../ErrorBoundary'
+import { useHistory } from 'react-router-dom'
+import publishNotification from '../../utils/publishNotification'
+import { useToasts } from 'react-toast-notifications'
 
 const BookDetails = (props) => {
   const [book, setBook] = useState()
@@ -14,6 +17,8 @@ const BookDetails = (props) => {
   const [isLiked, setIsLiked] = useState(false)
   const [addedComment, setAddedComment] = useState()
   const context = useContext(UserContext);
+  const history = useHistory();
+  const { addToast, removeToast } = useToasts()
 
   const getBook = async () => {
     const promise = await fetch(`http://localhost:9999/api/book`)
@@ -49,6 +54,7 @@ const BookDetails = (props) => {
     })
 
     setIsLiked(true)
+    publishNotification('You liked this book!', 'success', addToast, removeToast)
   }
 
   const onDislikeClick = async (event) => {
@@ -66,13 +72,29 @@ const BookDetails = (props) => {
     })
 
     setIsLiked(false)
+    publishNotification('You stopped liking this book!', 'warning', addToast, removeToast)
+  }
+
+  const onDeleteClick = async (event) => {
+    book.usersLiked.push(context.user.id);
+
+    await fetch(`http://localhost:9999/api/book/${book._id}`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': getCookie('x-auth-token')
+      }
+    })
+
+    publishNotification('Book has been deleted!', 'warning', addToast, removeToast)
+    history.goBack()
   }
 
 
 
     if(!book) {
         return (<PageLayout>
-          <p><strong className="infoType"> LOADING...</strong> </p>
+          <img className='img' src='https://media.tenor.com/images/0a000667c5aab43ac265d8c86a4bb310/tenor.gif' alt='Loading' />
           </PageLayout>)
         }
       else {
@@ -86,6 +108,7 @@ const BookDetails = (props) => {
                           onLikeClick={onLikeClick}
                           onDislikeClick={onDislikeClick}
                           onBookEditClick={onBookEditClick} 
+                          onDeleteClick={onDeleteClick}
                           isCreator={isCreator}
                           isLiked={isLiked}/>
                       </div>

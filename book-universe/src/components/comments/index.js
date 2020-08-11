@@ -9,7 +9,7 @@ const Comments = (props) => {
   const getComments = useCallback(async () => {
     const promise = await fetch(`http://localhost:9999/api/comment`)
     const allComments = await promise.json()
-    const specificComments = allComments.filter(c => c.book._id === props.bookId)
+    const specificComments = allComments.filter(c => c.book === props.bookId)
     setComments(specificComments)
   }, [props.addedComment, deletedComment])
 

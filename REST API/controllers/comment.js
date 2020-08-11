@@ -2,7 +2,7 @@ const models = require('../models');
 
 module.exports = {
     get: (req, res, next) => {
-        models.Comment.find().populate('creator').populate('book')
+        models.Comment.find().populate('creator')
             .then((comments) => res.send(comments))
             .catch(next);
     },

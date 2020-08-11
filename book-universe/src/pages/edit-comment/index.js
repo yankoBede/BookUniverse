@@ -62,10 +62,10 @@ const EditCommentPage = (props) => {
               <TextArea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                id="title"
+                id="content"
                 divClass="form-group"
                 inputClass="form-control"
-                name="title"
+                name="content"
                 placeholder="Fill your comment"/>
               <div className={styles['buttons-cotainer']}>
                 <button className="btn btn-primary">Edit</button>

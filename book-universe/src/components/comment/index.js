@@ -19,7 +19,7 @@ const Comment = ({ content, creator, _id, setDeletedComment, book, createdAt }) 
               {content} 
           </small>
         </div>
-        <CommentButtonsPanel setDeletedComment={setDeletedComment} book={book} commentId={_id} creatorId={creator._id}/>
+        <CommentButtonsPanel commentContent={content} setDeletedComment={setDeletedComment} book={book} commentId={_id} creatorId={creator._id}/>
       </div>
     </div>
   )

@@ -44,10 +44,10 @@ const AddCommnet = (props) => {
                     <TextArea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        id="title"
+                        id="comment"
                         divClass="form-group"
                         inputClass="form-control"
-                        name="title"
+                        name="comment"
                         placeholder="Fill your comment"/>
                     <div className={styles['comment-button']}>
                         <button className="btn btn-info">Comment</button>

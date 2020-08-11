@@ -42,8 +42,8 @@ const CommentButtonsPanel = (props) => {
     if (context.user.isLogged || context.user.id === props.creatorId) {
         return (        
             <div className={styles.buttons}>
-                <button type="button" onClick={editCommentHandler} className="btn btn-primary button-distance btn-sm">Edit</button>
-                <button type="button" onClick={deleteCommentHandler} className="btn btn-danger button-distance btn-sm">Delete</button>
+                <button type="button" data-edit-cy={props.commentContent} data- onClick={editCommentHandler} className="btn btn-primary button-distance btn-sm">Edit</button>
+                <button type="button" data-delete-cy={props.commentContent} onClick={deleteCommentHandler} className="btn btn-danger button-distance btn-sm">Delete</button>
             </div>
         )
     } else {
