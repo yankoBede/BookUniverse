@@ -7,7 +7,7 @@ const BooksList = () => {
     return (
       <PageLayout>
         <Title title="Books" />
-        <Books />
+        <Books allBooks={true}/>
       </PageLayout>
     )
 }

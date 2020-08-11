@@ -11,21 +11,23 @@ const Books = (props) => {
     const promise = await fetch(`http://localhost:9999/api/book`)
     const allBooks = await promise.json()
 
-    if(props.onlyLiked) {
+    if (props.onlyLiked) {
       const favouriteBooks = allBooks.filter(x => x.usersLiked.includes(context.user.id))
       setBooks(favouriteBooks)
     } else if (props.addedByMe) {
-      const addedByMeBooks = allBooks.filter(x => x.creator._id === context.user.id)
+      const addedByMeBooks = allBooks.filter(x => x.creator._id === context.user.id).sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+
       setBooks(addedByMeBooks)
     } if (props.topBooks) {
       const mostLikedBooks = allBooks.sort((a, b) => b.usersLiked - a.usersLiked).slice(0, 5)
       setBooks(mostLikedBooks)
-    } else {
-     setBooks(allBooks)
-    }
+    } if (props.allBooks) {
+      setBooks(allBooks)
+    }  
   }
 
   const renderBooks = () => {
+    console.log(books)
     if (books) {
       return books.map((book, index) => {
         return (

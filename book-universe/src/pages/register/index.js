@@ -5,9 +5,9 @@ import Title from '../../components/title'
 import Input from '../../components/input';
 import authenticate from '../../utils/authenticate'
 import { useToasts } from 'react-toast-notifications'
-import publishNotification from '../../utils//publishNotification'
+import publishNotification from '../../utils/publishNotification'
 
-const RegisterPage = (props) => {
+const RegisterPage = () => {
   const { addToast, removeToast } = useToasts()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")

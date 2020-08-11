@@ -43,6 +43,7 @@ const AddNewBookPage = () => {
       }
     })
 
+    publishNotification(`Book with title ${title.trim()} is created successfully!`, 'success', addToast, removeToast)
     history.push('/')
   }
 

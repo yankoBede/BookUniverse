@@ -2,8 +2,7 @@ const models = require('../models');
 
 module.exports = {
     get: (req, res, next) => {
-      const length = req.query.length ? parseInt(req.query.length) : 20
-        models.Comment.find().limit(length).populate('creator').populate('book')
+        models.Comment.find().populate('creator').populate('book')
             .then((comments) => res.send(comments))
             .catch(next);
     },

@@ -4,10 +4,10 @@ import Title from '../../components/title'
 import Books from '../../components/books'
 import ErrorBoundary from '../../ErrorBoundary'
 
-const FavouriteBooksList = (props) => {
+const FavouriteBooksList = () => {
     return (
       <PageLayout>
-        <Title title="My favourite books" />
+        <Title title="Top read books" />
         <ErrorBoundary>
           <Books topBooks={true} />
         </ErrorBoundary>

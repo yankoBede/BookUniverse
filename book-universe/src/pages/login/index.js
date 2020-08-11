@@ -8,7 +8,7 @@ import UserContext from '../../Context'
 import { useToasts } from 'react-toast-notifications'
 import publishNotification from '../../utils/publishNotification'
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const { addToast, removeToast } = useToasts()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -22,7 +22,7 @@ const LoginPage = (props) => {
       username,
       password
       }, (user) => {
-        publishNotification('You logged successfully', 'success', addToast, removeToast)
+        publishNotification('You logged in successfully!', 'success', addToast, removeToast)
         context.logIn(user) 
         history.push('/')
       }, e => {
@@ -47,7 +47,7 @@ const LoginPage = (props) => {
                 divClass="form-group"
                 inputClass="form-control"
                 type="text"
-                placeholder="usermail@domain.com"/>
+                placeholder="username"/>
               <Input
                 value={password}
                 onChange={e => setPassword(e.target.value)}

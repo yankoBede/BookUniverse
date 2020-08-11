@@ -48,9 +48,10 @@ const EditBookPage = (props) => {
           }
       })
 
-      publishNotification(`Book ${title} has been updated`, 'info', addToast, removeToast)
+      
 
       history.goBack()
+      publishNotification(`Book has been updated!`, 'info', addToast, removeToast)
   }
 
     const getBook = async () => {
