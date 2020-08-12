@@ -2,7 +2,7 @@
     font-family: Arial;
 }
 
-div.books {
+.books {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;

@@ -59,17 +59,17 @@ describe('Register scenarios', () => {
         cy.get('#password').type(password)
         cy.get('#rePassword').type(password)
         cy.get('button').click()
-        cy.get('div').contains('Username must be between 5 and 12 characters') 
+        cy.get('div').contains('Username must be between 5 and 20 characters') 
     })
 
-    it('Register with username more than 12 symbols results in error', () => {
+    it('Register with username more than 20 symbols results in error', () => {
         cy.visit('http://localhost:3000/register')
         cy.get('h1').contains('Register')
-        cy.get('#username').type('fdsffdsffdsffdsf1')
+        cy.get('#username').type('fdsffdsffdsffdsfdsff1')
         cy.get('#password').type(password)
         cy.get('#rePassword').type(password)
         cy.get('button').click()
-        cy.get('div').contains('Username must be between 5 and 12 characters') 
+        cy.get('div').contains('Username must be between 5 and 20 characters') 
     })
 
     it('Register with invalid password results in error', () => {
@@ -95,7 +95,7 @@ describe('Register scenarios', () => {
     it('Register with existing username results in error', () => {
         cy.visit('http://localhost:3000/register')
         cy.get('h1').contains('Register')
-        cy.get('#username').type('yanko')
+        cy.get('#username').type('yanko.nikolov')
         cy.get('#password').type(password)
         cy.get('#rePassword').type(password)
         cy.get('button').click()

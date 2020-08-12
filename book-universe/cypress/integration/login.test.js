@@ -1,5 +1,5 @@
 describe('Login scenarios', () => {
-  const username = 'yanko89'
+  const username = 'yanko.nikolov'
   const password = '1234qwer!'
 
   it('elements verification', () => {

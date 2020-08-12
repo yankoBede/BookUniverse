@@ -1,6 +1,4 @@
-import cryptoRandomString from 'crypto-random-string'
-
-const username = 'yanko89'
+const username = 'yanko.nikolov'
 const password = '1234qwer!'
 
 beforeEach(() => {
@@ -10,7 +8,16 @@ beforeEach(() => {
     cy.get('#password').type(password)
     cy.get('button').click()
     cy.get('div').contains('You logged in successfully!') 
-    cy.visit('http://localhost:3000/books/5f32934f7202ca3170a4b3a5')
+
+    cy.get('a').contains('Add a new book').click()
+    cy.get('#title').type('title')
+    cy.get('#author').type('author')
+    cy.get('#description').type('description')
+    cy.get('#imageUrl').type('http://imageUrl')
+    cy.get('button').click()
+    cy.get('div').contains(`Book with title title is created successfully!`)
+    cy.contains(`Hello, ${username}`).click()
+    cy.contains('author').next().click()
 })
   
 describe('Comments scenarios', () => {
@@ -22,6 +29,9 @@ describe('Comments scenarios', () => {
         cy.get('[data-delete-cy]').click()
         cy.get('div').contains('Comment has been deleted') 
         cy.contains(`${username}: This is my comment`).should('not.exist')
+
+        cy.contains(`Delete`).click()
+        cy.get('div').contains(`Book has been deleted!`) 
     })
 
     it('Add a comment and edit it after that', () => {
@@ -30,12 +40,16 @@ describe('Comments scenarios', () => {
         cy.get('div').contains('Your comment was added successfully') 
         cy.contains(`${username}: This is my comment`).should('be.visible')
         cy.get('[data-edit-cy]').click()
-        cy.get('#content').type(' updated')
+        cy.get('#content').type(' ')
+        cy.get('#content').type('updated')
         cy.get('button').click()
         cy.get('div').contains('Your comment is updated successfully!') 
         cy.contains(`${username}: This is my comment updated`).should('be.visible')
         cy.get('[data-delete-cy]').click()
         cy.get('div').contains('Comment has been deleted') 
         cy.contains(`${username}: This is my comment updated`).should('not.exist')
+
+        cy.contains(`Delete`).click()
+        cy.get('div').contains(`Book has been deleted!`) 
     })
 })

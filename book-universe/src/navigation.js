@@ -13,6 +13,7 @@ import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
 import ErrorPage from './pages/error'
 import AddNewBook from './pages/add-book'
+import NoLoggedUser from './pages/no-logged-user-page'
 import BookDetails from './pages/book-details'
 import EditCommentPage from './pages/edit-comment'
 import EditBookPage from './pages/edit-book'
@@ -25,7 +26,10 @@ const Navigation = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={TopBooksList} />
+        <Route path="/" exact>
+          {!loggedIn ? (<NoLoggedUser />) : (<TopBooksList />)}
+        </Route>
+        <Route path="/top" component={TopBooksList}/>
         <Route path="/all">
           {!loggedIn ? (<Redirect to="/login" />) : (<BooksList />)}
         </Route>

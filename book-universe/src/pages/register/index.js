@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from "react-router-dom"
 import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
@@ -6,6 +6,7 @@ import Input from '../../components/input';
 import authenticate from '../../utils/authenticate'
 import { useToasts } from 'react-toast-notifications'
 import publishNotification from '../../utils/publishNotification'
+import UserContext from '../../Context'
 
 const RegisterPage = () => {
   const { addToast, removeToast } = useToasts()
@@ -13,6 +14,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
   const history = useHistory()
+  const context = useContext(UserContext);
  
   const usernameChange = (event) => {
     setUsername(event.target.value)
@@ -22,12 +24,10 @@ const RegisterPage = () => {
     const value = event.target.value;
     const regex = /^[0-9a-zA-Z(\-)]+$/;
 
-    if (value.length < 5 || value.length > 12) {
-      publishNotification('Username must be between 5 and 12 characters', 'error', addToast, removeToast)
-    } else if (!value.match(regex)) {
-      publishNotification('Username must contain only letters and numbers', 'error', addToast, removeToast)
-    }  
-
+    if (value.length < 5 || value.length > 20) {
+      publishNotification('Username must be between 5 and 20 characters', 'error', addToast, removeToast)
+    } 
+    
     setUsername(value)
   }
 
@@ -66,8 +66,9 @@ const RegisterPage = () => {
     await authenticate('http://localhost:9999/api/user/register', {
         username,
         password
-      }, () => {
+      }, (user) => {
         publishNotification('You registered successfully!', 'success', addToast, removeToast)
+        context.logIn(user) 
         history.push('/')
       }, e => {
         if(e.message.message) {

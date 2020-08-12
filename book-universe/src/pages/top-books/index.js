@@ -4,7 +4,7 @@ import Title from '../../components/title'
 import Books from '../../components/books'
 import ErrorBoundary from '../../ErrorBoundary'
 
-const FavouriteBooksList = () => {
+const TopBooksList = () => {
     return (
       <PageLayout>
         <Title title="Top read books" />
@@ -15,4 +15,4 @@ const FavouriteBooksList = () => {
     )
 }
 
-export default FavouriteBooksList
+export default TopBooksList

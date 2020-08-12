@@ -1,6 +1,6 @@
 import cryptoRandomString from 'crypto-random-string'
 
-const username = 'yanko89'
+const username = 'yanko.nikolov'
 const password = '1234qwer!'
 
 beforeEach(() => {
@@ -10,18 +10,18 @@ beforeEach(() => {
     cy.get('#password').type(password)
     cy.get('button').click()
     cy.get('div').contains('You logged in successfully!') 
-    cy.visit('http://localhost:3000/books/5f32934f7202ca3170a4b3a5')
+    cy.visit('http://localhost:3000/books/5f33d6fa87dac5565849229d')
 })
   
 describe('Books Details scenarios', () => {
     it('Like and dislike a book', () => {
-        cy.visit('http://localhost:3000/books/5f1c4a415611ba14a4443d73')
+        cy.visit('http://localhost:3000/books/5f33d23187dac5565849229a')
         cy.contains(`Like`).click()
         cy.get('div').contains(`You liked this book!`) 
         cy.get('a').contains('My favourite books').click()
         cy.contains('1984').should('be.visible') 
 
-        cy.visit('http://localhost:3000/books/5f1c4a415611ba14a4443d73')
+        cy.visit('http://localhost:3000/books/5f33d23187dac5565849229a')
         cy.contains(`Dislike`).click()
         cy.get('div').contains(`You stopped liking this book!`) 
         cy.get('a').contains('My favourite books').click()
@@ -34,12 +34,11 @@ describe('Books Details scenarios', () => {
         cy.contains(`Description:`).should('be.visible')  
         cy.contains(`Readers comments`).should('be.visible')  
         cy.contains(`Comment`).should('be.visible')  
-        cy.get('#title').should('be.visible') 
     })
 
     it('Edit button redirects to the book edit page', () => {
         cy.contains(`Edit`).click()  
-        cy.url().should('include', 'books/5f32934f7202ca3170a4b3a5/edit')
+        cy.url().should('include', 'books/5f33d6fa87dac5565849229d/edit')
     })
 
     it('Delete button deletes the book successfully', () => {

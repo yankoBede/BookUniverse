@@ -1,0 +1,10 @@
+.div {
+    align-content: center;
+    text-align: center;
+  }
+  
+  .h1 {
+    text-transform: unset;
+    padding-bottom: 10px;
+    color: goldenrod;
+  }

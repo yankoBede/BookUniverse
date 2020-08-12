@@ -39,6 +39,11 @@ const getNavigation = (user) => {
       position: "left"
     },
     {
+      title: "Top 5",
+      link: "/top",
+      position: "left"
+    },
+    {
       title: "Register",
       link: "/register",
       position: "right"

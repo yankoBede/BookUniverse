@@ -14,11 +14,17 @@ const Comments = (props) => {
   }, [props.addedComment, deletedComment])
 
   const renderComments = () => {
-    return comments.map((comment) => {
+    if (comments && comments.length > 0) {
+      return comments.map((comment) => {
+        return (
+          <Comment setDeletedComment={setDeletedComment} key={comment._id} {...comment} />
+        )
+      })
+    } else {
       return (
-        <Comment setDeletedComment={setDeletedComment} key={comment._id} {...comment} />
+        <i> Be the first to comment that masterpiece </i>
       )
-    })
+    }
   }
 
   useEffect(() => {

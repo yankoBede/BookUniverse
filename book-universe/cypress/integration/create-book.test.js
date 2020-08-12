@@ -1,6 +1,6 @@
 import cryptoRandomString from 'crypto-random-string'
 
-const username = 'yanko89'
+const username = 'yanko.nikolov'
 const password = '1234qwer!'
 
 beforeEach(() => {
@@ -13,7 +13,6 @@ beforeEach(() => {
 })
   
 describe('Create a book scenarios', () => {
-
     const title = cryptoRandomString({length: 10})
     const author = cryptoRandomString({length: 10})
     const description = cryptoRandomString({length: 10})
@@ -27,6 +26,11 @@ describe('Create a book scenarios', () => {
         cy.get('#imageUrl').type(imageUrl)
         cy.get('button').click()
         cy.get('div').contains(`Book with title ${title.trim()} is created successfully!`) 
+
+        cy.contains(`Hello, ${username}`).click()
+        cy.contains(author).next().click()
+        cy.contains(`Delete`).click()
+        cy.get('div').contains(`Book has been deleted!`) 
     })
 
     it('Trying to create a book with empty fields results in error', () => {

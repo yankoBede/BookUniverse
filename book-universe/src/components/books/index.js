@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import styles from './index.module.css'
 import BookInfo from '../book-info'
+import NoBooks from '../../components/no-books'
 import UserContext from '../../Context'
 
 const Books = (props) => {
@@ -27,25 +28,24 @@ const Books = (props) => {
   }
 
   const renderBooks = () => {
-    console.log(books)
-    if (books) {
+    if (books && books.length > 0) {
       return books.map((book, index) => {
         return (
           <BookInfo key={book._id} index={index} {...book} />
         )
       })
+    } else if (books && books.length === 0) {
+      return <NoBooks/>
     }
   }
 
   useEffect(() => {
     getBooks()
   }, [])
-
-  return (
-    <div className={styles.books}>
-      {renderBooks()}
-    </div>
-  )
+    return (
+      <div className={books && books.length > 0 && styles.books}>
+        {renderBooks()}
+      </div>)
 }
 
 export default Books
