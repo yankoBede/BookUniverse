@@ -8,7 +8,7 @@ import styles from './index.module.css'
 import { useToasts } from 'react-toast-notifications'
 import publishNotification from '../../utils/publishNotification'
 
-const EditCommentPage = (props) => {
+const EditCommentPage = () => {
     const { commentId } = useParams();
     const { addToast, removeToast } = useToasts()
     const [content, setContent] = useState('')
@@ -23,21 +23,25 @@ const EditCommentPage = (props) => {
           return
         }
 
-        await fetch(`http://localhost:9999/api/comment/${commentId}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            ...comment,
-            content: content.trim()
-          }),
-          headers: {
-              'Content-Type': 'application/json',
-              'x-auth-token': getCookie('x-auth-token')
-          }
-        })
-
-        publishNotification('Your comment is updated successfully!', 'info', addToast, removeToast)
-   
-        history.goBack()
+        try {
+          await fetch(`http://localhost:9999/api/comment/${commentId}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              ...comment,
+              content: content.trim()
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': getCookie('x-auth-token')
+            }
+          })
+  
+          publishNotification('Your comment is updated successfully!', 'info', addToast, removeToast)
+     
+          history.goBack()
+        } catch(e) {
+          publishNotification('An error has occured. Please try later!', 'error', addToast, removeToast)
+        }
     }
 
     useEffect(() => {

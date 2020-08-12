@@ -8,7 +8,7 @@ const Footer = () => {
           <p className="text-muted text-center">
               <a href="https://softuni.bg/trainings/3023/reactjs--june-2020/internal">React Course </a>
               @
-              <a href="https://www.softuni.bg">SoftUnis </a>
+              <a href="https://www.softuni.bg">SoftUni </a>
               2020
           </p>
       </div>

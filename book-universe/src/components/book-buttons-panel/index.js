@@ -23,11 +23,11 @@ const BookButtonsPanel = (props) => {
                     </div>
                     )
             } else {
-                    return (                
-                    <div className={styles['button-distance']}>
-                        <button type="button" onClick={props.onLikeClick} className="btn btn-warning">Like</button>
-                    </div>
-                    )
+                return (                
+                <div className={styles['button-distance']}>
+                    <button type="button" onClick={props.onLikeClick} className="btn btn-warning">Like</button>
+                </div>
+                )
             }
         }
     }

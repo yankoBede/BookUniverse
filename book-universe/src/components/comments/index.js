@@ -22,7 +22,7 @@ const Comments = (props) => {
       })
     } else {
       return (
-        <i> Be the first to comment that masterpiece </i>
+        <i> You could be the first to comment that masterpiece </i>
       )
     }
   }

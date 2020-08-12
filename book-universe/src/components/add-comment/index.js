@@ -14,27 +14,31 @@ const AddCommnet = (props) => {
     const sumbitCommentHandler = async (event) =>  {
         event.preventDefault();
 
-        if(!content.trim()) {
+        if(!content || !content.trim()) {
             publishNotification('Please fill your comment', 'error', addToast, removeToast)
             return
         } 
 
-        await fetch('http://localhost:9999/api/comment', {
-            method: 'POST',
-            body: JSON.stringify({
-                content: content.trim(),
-                createdAt: new Date(),
-                book: props.bookId
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': getCookie('x-auth-token')
-            }
-        })
+        try {
+            await fetch('http://localhost:9999/api/comment', {
+                method: 'POST',
+                body: JSON.stringify({
+                    content: content.trim(),
+                    createdAt: new Date(),
+                    book: props.bookId
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': getCookie('x-auth-token')
+                }
+            })
 
-        props.setAddedComment(content)
-        setContent('')
-        publishNotification('Your comment was added successfully', 'success', addToast, removeToast)
+            props.setAddedComment(content)
+            setContent('')
+            publishNotification('Your comment was added successfully', 'success', addToast, removeToast)
+        } catch(e) {
+            publishNotification('An error has occured. Please try later!', 'error', addToast, removeToast)
+        }
     }
 
     if (context.user.loggedIn) {

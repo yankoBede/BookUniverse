@@ -42,92 +42,102 @@ const BookDetails = (props) => {
   const onLikeClick = async (event) => {
     book.usersLiked.push(context.user.id);
 
-    await fetch(`http://localhost:9999/api/book/${book._id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        ...book
-      }),
-      headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': getCookie('x-auth-token')
-      }
-    })
-
-    setIsLiked(true)
-    publishNotification('You liked this book!', 'success', addToast, removeToast)
+    try {
+      await fetch(`http://localhost:9999/api/book/${book._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          ...book
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': getCookie('x-auth-token')
+        }
+      })
+  
+      setIsLiked(true)
+      publishNotification('You liked this book!', 'success', addToast, removeToast)
+    } catch(e) {
+      publishNotification('An error has occured. Please try later!', 'error', addToast, removeToast)
+    }
   }
 
   const onDislikeClick = async (event) => {
     book.usersLiked = book.usersLiked.filter(x => x !== context.user.id)
 
-    await fetch(`http://localhost:9999/api/book/${book._id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-          ...book
-      }),
-      headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': getCookie('x-auth-token')
-      }
-    })
-
-    setIsLiked(false)
-    publishNotification('You stopped liking this book!', 'warning', addToast, removeToast)
+    try {
+      await fetch(`http://localhost:9999/api/book/${book._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            ...book
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': getCookie('x-auth-token')
+        }
+      })
+      
+      setIsLiked(false)
+      publishNotification('You stopped liking this book!', 'warning', addToast, removeToast)
+    } catch(e) {
+      publishNotification('An error has occured. Please try later!', 'error', addToast, removeToast)
+    }
   }
 
   const onDeleteClick = async (event) => {
     book.usersLiked.push(context.user.id);
 
-    await fetch(`http://localhost:9999/api/book/${book._id}`, {
-      method: 'DELETE',
-      headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': getCookie('x-auth-token')
-      }
-    })
-
-    publishNotification('Book has been deleted!', 'warning', addToast, removeToast)
-    history.goBack()
+    try {
+      await fetch(`http://localhost:9999/api/book/${book._id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': getCookie('x-auth-token')
+        }
+      })
+  
+      publishNotification('Book has been deleted!', 'warning', addToast, removeToast)
+      history.goBack()
+    } catch(e) {
+      publishNotification('An error has occured. Please try later!', 'error', addToast, removeToast)
+    }
   }
 
-
-
-    if(!book) {
-        return (<PageLayout>
-          <img className='img' src='https://media.tenor.com/images/0a000667c5aab43ac265d8c86a4bb310/tenor.gif' alt='Loading' />
-          </PageLayout>)
-        }
-      else {
-        return (<PageLayout>
-            <div className="row text-center">
-                    <div className="col-1"></div>
-                    <div className="col-3">
-                      <div>
-                        <img className={styles["details-img"]} src={book.imageUrl} alt='book-img'/>
-                        <BookButtonsPanel 
-                          onLikeClick={onLikeClick}
-                          onDislikeClick={onDislikeClick}
-                          onBookEditClick={onBookEditClick} 
-                          onDeleteClick={onDeleteClick}
-                          isCreator={isCreator}
-                          isLiked={isLiked}/>
-                      </div>
+  if(!book) {
+      return (<PageLayout>
+        <img className='img' src='https://media.tenor.com/images/0a000667c5aab43ac265d8c86a4bb310/tenor.gif' alt='Loading' />
+        </PageLayout>)
+      }
+    else {
+      return (<PageLayout>
+          <div className="row text-center">
+                  <div className="col-1"></div>
+                  <div className="col-3">
+                    <div>
+                      <img className={styles["details-img"]} src={book.imageUrl} alt='book-img'/>
+                      <BookButtonsPanel 
+                        onLikeClick={onLikeClick}
+                        onDislikeClick={onDislikeClick}
+                        onBookEditClick={onBookEditClick} 
+                        onDeleteClick={onDeleteClick}
+                        isCreator={isCreator}
+                        isLiked={isLiked}/>
                     </div>
-                    <div className="col-6">
-                      <div>
-                          <h2 className="display-5">{book.title}</h2>
-                          <h4>{book.author}</h4>
-                          <br></br>
-                          <p><strong className={styles["book-description"]}>Description:</strong> {book.description}</p>
-                      </div>
-                      <hr/>
-                      <ErrorBoundary>
-                        <Comments addedComment={addedComment} bookId={props.match.params.bookId} />
-                      </ErrorBoundary>
-                      <AddComment bookId={props.match.params.bookId} setAddedComment={setAddedComment}/>
-                </div>
-            </div>
-            </PageLayout>)
+                  </div>
+                  <div className="col-6">
+                    <div>
+                        <h2 className="display-5">{book.title}</h2>
+                        <h4>{book.author}</h4>
+                        <br></br>
+                        <p><strong className={styles["book-description"]}>Description:</strong> {book.description}</p>
+                    </div>
+                    <hr/>
+                    <ErrorBoundary>
+                      <Comments addedComment={addedComment} bookId={props.match.params.bookId} />
+                    </ErrorBoundary>
+                    <AddComment bookId={props.match.params.bookId} setAddedComment={setAddedComment}/>
+              </div>
+          </div>
+     </PageLayout>)
   }
 }
 

@@ -32,7 +32,8 @@ const EditBookPage = (props) => {
         return
       }
 
-      await fetch(`http://localhost:9999/api/book/${id}`, {
+      try {
+        await fetch(`http://localhost:9999/api/book/${id}`, {
           method: 'PUT',
           body: JSON.stringify({
             ...book,
@@ -48,30 +49,31 @@ const EditBookPage = (props) => {
           }
       })
 
-      
-
       history.goBack()
       publishNotification(`Book has been updated!`, 'info', addToast, removeToast)
+      } catch(e) {
+        publishNotification('An error has occured. Please try later!', 'error', addToast, removeToast)
+      }
   }
 
-    const getBook = async () => {
-        const promise = await fetch(`http://localhost:9999/api/book`)
-        const books = await promise.json()
-        const book = books.filter(x => x._id === bookId)[0]
+  const getBook = async () => {
+      const promise = await fetch(`http://localhost:9999/api/book`)
+      const books = await promise.json()
+      const book = books.filter(x => x._id === bookId)[0]
+  
+      setId(book._id)
+      setAuthor(book.author) 
+      setTitle(book.title) 
+      setDescription(book.description) 
+      setImageUrl(book.imageUrl) 
+      setCreatedAt(book.createdAt)
+      setBook(book)
+    }
     
-        setId(book._id)
-        setAuthor(book.author) 
-        setTitle(book.title) 
-        setDescription(book.description) 
-        setImageUrl(book.imageUrl) 
-        setCreatedAt(book.createdAt)
-        setBook(book)
-      }
-      
-      useEffect( () => {
-        getBook()
-      },[])
- 
+    useEffect( () => {
+      getBook()
+    },[])
+
     return (
       <PageLayout>
         <div className="row">
@@ -92,10 +94,7 @@ const EditBookPage = (props) => {
                 setImageUrl={setImageUrl}/>
             </div>
         </div>
-      </PageLayout>
-
-    )
-  
+      </PageLayout>)
 }
 
 export default EditBookPage

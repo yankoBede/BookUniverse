@@ -24,19 +24,23 @@ const CommentButtonsPanel = (props) => {
     }
 
     const deleteCommentHandler = async (event) => {
-        event.preventDefault()
-        const promise = await fetch(`http://localhost:9999/api/comment/${props.commentId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': getCookie('x-auth-token')
-            }
-        })
-
-        await promise.json();
-        props.setDeletedComment(props.commentId)
-
-        publishNotification('Comment has been deleted', 'warning')
+        try {
+            event.preventDefault()
+            const promise = await fetch(`http://localhost:9999/api/comment/${props.commentId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': getCookie('x-auth-token')
+                }
+            })
+    
+            await promise.json();
+            props.setDeletedComment(props.commentId)
+    
+            publishNotification('Comment has been deleted', 'warning')
+        } catch(e) {
+            publishNotification('An error has occured. Please try later!', 'error', addToast, removeToast)
+        }
     }
 
     if (context.user.isLogged || context.user.id === props.creatorId) {
