@@ -13,7 +13,7 @@ beforeEach(() => {
     cy.get('#username').type(username)
     cy.get('#password').type(password)
     cy.get('button').click()
-    cy.get('div').contains('You logged in successfully!') 
+    cy.get('div').contains('You logged in successfully!').should('be.visible')
 
     cy.get('a').contains('Add a new book').click()
     cy.get('#title').type('title')
@@ -21,7 +21,7 @@ beforeEach(() => {
     cy.get('#description').type('description')
     cy.get('#imageUrl').type('http://imageUrl')
     cy.get('button').click()
-    cy.get('div').contains(`Book with title title is created successfully!`)
+    cy.get('div').contains(`Book with title title is created successfully!`).should('be.visible')
     cy.contains(`Hello, ${username}`).click()
     cy.contains('author').next().click()
     cy.contains('Edit').click()
@@ -35,12 +35,12 @@ describe('Edit a book scenarios', () => {
         cy.get('#description').clear().type(newDescription)
         cy.get('#imageUrl').clear().type(newImageUrl)
         cy.get('button').click()
-        cy.get('div').contains(`Book has been updated!`)
+        cy.get('div').contains(`Book has been updated!`).should('be.visible')
 
         cy.contains(`Hello, ${username}`).click()
         cy.contains(newAuthor).next().click()
         cy.contains(`Delete`).click()
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible')
     })
 
     it('Trying to edit a book with empty fields results in error', () => {
@@ -50,24 +50,24 @@ describe('Edit a book scenarios', () => {
         cy.get('#description').clear()
         cy.get('#imageUrl').clear()
         cy.get('button').click()
-        cy.get('div').contains(`Please fill all the fields`) 
+        cy.get('div').contains(`Please fill all the fields`).should('be.visible') 
 
         cy.contains(`Hello, ${username}`).click()
         cy.contains('author').next().click()
         cy.contains(`Delete`).click()
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible')
     })
 
     it('Trying to edit a book with empty title results in error', () => {
         cy.wait(1000)
         cy.get('#title').clear()
         cy.get('button').click()
-        cy.get('div').contains(`Please fill all the fields`) 
+        cy.get('div').contains(`Please fill all the fields`).should('be.visible') 
 
         cy.contains(`Hello, ${username}`).click()
         cy.contains('author').next().click()
         cy.contains(`Delete`).click()
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible') 
     })
 
     it('Trying to edit a book with empty author results in error', () => {
@@ -79,31 +79,31 @@ describe('Edit a book scenarios', () => {
         cy.contains(`Hello, ${username}`).click()
         cy.contains('author').next().click()
         cy.contains(`Delete`).click()
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible') 
     })
 
     it('Trying to edit a book with empty description results in error', () => {
         cy.wait(1000)
         cy.get('#description').clear()
         cy.get('button').click()
-        cy.get('div').contains(`Please fill all the fields`) 
+        cy.get('div').contains(`Please fill all the fields`).should('be.visible') 
 
         cy.contains(`Hello, ${username}`).click()
         cy.contains('author').next().click()
         cy.contains(`Delete`).click()
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible') 
     })
 
     it('Trying to edit a book with empty image url results in error', () => { 
         cy.wait(1000)
         cy.get('#imageUrl').clear()
         cy.get('button').click()
-        cy.get('div').contains(`Please fill all the fields`) 
+        cy.get('div').contains(`Please fill all the fields`).should('be.visible') 
 
         cy.contains(`Hello, ${username}`).click()
         cy.contains('author').next().click()
         cy.contains(`Delete`).click()
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible') 
     })
 
     it('Trying to edit a book with invalid image url results in error', () => {
@@ -111,11 +111,11 @@ describe('Edit a book scenarios', () => {
         cy.get('#imageUrl').clear()
         cy.get('#imageUrl').type('invalid')
         cy.get('button').click()
-        cy.get('div').contains(`Please add a valid image url`) 
+        cy.get('div').contains(`Please add a valid image url`).should('be.visible') 
 
         cy.contains(`Hello, ${username}`).click()
         cy.contains('author').next().click()
         cy.contains(`Delete`).click()
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible')
     })
 })

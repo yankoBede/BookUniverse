@@ -5,11 +5,11 @@ const password = '1234qwer!'
 
 beforeEach(() => {
     cy.visit('http://localhost:3000/login')
-    cy.get('h1').contains('Login')
+    cy.get('h1').contains('Login').should('be.visible')
     cy.get('#username').type(username)
     cy.get('#password').type(password)
     cy.get('button').click()
-    cy.get('div').contains('You logged in successfully!') 
+    cy.get('div').contains('You logged in successfully!').should('be.visible') 
     cy.visit('http://localhost:3000/books/5f33d6fa87dac5565849229d')
 })
   
@@ -17,13 +17,13 @@ describe('Books Details scenarios', () => {
     it('Like and dislike a book', () => {
         cy.visit('http://localhost:3000/books/5f33d23187dac5565849229a')
         cy.contains(`Like`).click()
-        cy.get('div').contains(`You liked this book!`) 
+        cy.get('div').contains(`You liked this book!`).should('be.visible') 
         cy.get('a').contains('My favourite books').click()
         cy.contains('1984').should('be.visible') 
 
         cy.visit('http://localhost:3000/books/5f33d23187dac5565849229a')
         cy.contains(`Dislike`).click()
-        cy.get('div').contains(`You stopped liking this book!`) 
+        cy.get('div').contains(`You stopped liking this book!`).should('be.visible') 
         cy.get('a').contains('My favourite books').click()
         cy.contains('1984').should('not.exist')
     })
@@ -53,12 +53,12 @@ describe('Books Details scenarios', () => {
         cy.get('#description').type(description)
         cy.get('#imageUrl').type(imageUrl)
         cy.get('button').click()
-        cy.get('div').contains(`Book with title ${title.trim()} is created successfully!`) 
+        cy.get('div').contains(`Book with title ${title.trim()} is created successfully!`).should('be.visible') 
         cy.visit('http://localhost:3000/myBooks')
         cy.get('a').get('[href="/myBooks"]').click()
         cy.contains(author).next().click()
         cy.contains(`Delete`).click()
 
-        cy.get('div').contains(`Book has been deleted!`) 
+        cy.get('div').contains(`Book has been deleted!`).should('be.visible') 
     })
 })

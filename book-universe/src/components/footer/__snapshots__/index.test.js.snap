@@ -13,19 +13,15 @@ exports[`Footer Component should render react course link and softuni link 1`] =
       <a
         href="https://softuni.bg/trainings/3023/reactjs--june-2020/internal"
       >
-        React Course
+        React Course 
       </a>
       @
       <a
         href="https://www.softuni.bg"
       >
-        SoftUni
+        SoftUni 
       </a>
-    </p>
-    <p
-      className="text-muted text-center"
-    >
-      All rights reserved © 2020
+      2020
     </p>
   </div>
 </footer>

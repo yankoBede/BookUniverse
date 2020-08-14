@@ -17,7 +17,7 @@ describe('Login scenarios', () => {
   it('Log in successfully', () => {
     cy.visit('http://localhost:3000')
     cy.get('a').contains('Login').click()
-    cy.get('h1').contains('Login')
+    cy.get('h1').contains('Login').should('be.visible')
     cy.get('#username').type(username)
     cy.get('#password').type(password)
     cy.get('button').click()
@@ -26,7 +26,7 @@ describe('Login scenarios', () => {
 
   it('Log in with invalid username results in error', () => {
     cy.visit('http://localhost:3000/login')
-    cy.get('h1').contains('Login')
+    cy.get('h1').contains('Login').should('be.visible')
     cy.get('#username').type('invalid')
     cy.get('#password').type(password)
     cy.get('button').click()
@@ -35,7 +35,7 @@ describe('Login scenarios', () => {
 
   it('Log in with invalid password results in error', () => {
     cy.visit('http://localhost:3000/login')
-    cy.get('h1').contains('Login')
+    cy.get('h1').contains('Login').should('be.visible')
     cy.get('#username').type(username)
     cy.get('#password').type('invalid')
     cy.get('button').click()
