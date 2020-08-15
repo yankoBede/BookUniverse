@@ -1,11 +1,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import Title from './index'
+import NoBooks from './index'
 
-describe('Title Component', () => {
-    it('should render title with passes text', () => {
+describe('NoBooks Component', () => {
+    it('should render No Books image and text', () => {
         const tree = renderer.create(
-            <Title title="My Test"/>
+            <NoBooks/>
         ).toJSON()
         expect(tree).toMatchSnapshot()
     })

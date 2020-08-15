@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component should render No Books image and text 1`] = `
+<div
+  className="div"
+>
+  <img
+    alt="mp-books"
+    src="https://media.istockphoto.com/vectors/shelf-vector-id165794808?k=6&m=165794808&s=612x612&w=0&h=14iBSQo-gCeY-I6DicAu3dndy_vua4NXXnj6fCgNdTw="
+  />
+  <div>
+    <h3
+      className="h3"
+    >
+      No available books yet
+    </h3>
+  </div>
+</div>
+`;
+
+exports[`NoBooks Component should render No Books image and text 1`] = `
+<div
+  className="div"
+>
+  <img
+    alt="mp-books"
+    src="https://media.istockphoto.com/vectors/shelf-vector-id165794808?k=6&m=165794808&s=612x612&w=0&h=14iBSQo-gCeY-I6DicAu3dndy_vua4NXXnj6fCgNdTw="
+  />
+  <div>
+    <h3
+      className="h3"
+    >
+      No available books yet
+    </h3>
+  </div>
+</div>
+`;

@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header Component should render authenticated routes 1`] = `
+exports[`Header Component should render title with passes text 1`] = `
+<h1
+  className="title"
+>
+  My Test
+</h1>
+`;
+
+exports[`Title Component should render title with passes text 1`] = `
 <h1
   className="title"
 >

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text Area Component should render title with passes text 1`] = `
+<div
+  className="div-class"
+>
+  <label
+    htmlFor="test-text-id"
+  >
+    test text area label
+  </label>
+  <textarea
+    className="input-class"
+    id="test-text-id"
+    name="test-text-name"
+    onChange={[Function]}
+    rows="10"
+    value="test-text-value"
+  />
+</div>
+`;
