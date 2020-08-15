@@ -6,7 +6,7 @@ import getCookie from '../../utils/getCookie'
 import { useToasts } from 'react-toast-notifications'
 import publishNotification from '../../utils/publishNotification'
 
-const AddCommnet = (props) => {
+const AddComment = (props) => {
     const [content, setContent] = useState()
     const context = useContext(UserContext);
     const { addToast, removeToast } = useToasts()
@@ -65,4 +65,4 @@ const AddCommnet = (props) => {
     
 }
 
-export default AddCommnet
+export default AddComment
