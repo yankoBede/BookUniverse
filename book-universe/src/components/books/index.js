@@ -21,7 +21,6 @@ const Books = (props) => {
       setBooks(addedByMeBooks)
     } if (props.topBooks) {
       const mostLikedBooks = allBooks.sort((a, b) => b.usersLiked.length - a.usersLiked.length).slice(0, 5)
-      console.log(mostLikedBooks)
       setBooks(mostLikedBooks)
     } if (props.allBooks) {
       setBooks(allBooks)
